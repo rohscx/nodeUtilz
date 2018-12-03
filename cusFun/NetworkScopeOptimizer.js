@@ -1,268 +1,271 @@
-[root@FTPAPPR01 modules]# cat dataTools.js
-const fs = require('fs');
-const path = require('path');
-const fileSystem = require('./util/fileSystem')
-//path.normalize(): example /opt/datafiles/about.html
-//path.dirname();  example /opt/datafiles
-//path.basename(); example about.html
-//path.extname(); example .html
 
-class dataTools extends fileSystem {
-  constructor (inputFile,outputFile){
-    super(inputFile,outputFile)
-    this.cleanedData = "";
-    this.sortedData = "";
-    this.ipRange = "";
-    this.ipBase2 = "";
-    this.compare = {dataSet1:[],dataSet2:[]}
-  }
+/*s test in browser
+1.1.0.0/16
 
-  setCompare (dataSet1,dataSet2){
-    this.compare.dataSet1 = dataSet1;
-    this.compare.dataSet1 = dataSet2;
-  }
+1.1.1.1/32
+1.1.2.1/32
+sampleData =`
+1.1.1.1/24
+   2.2.2.2/24
+  1.1.2.1/24
+4.4.4.4/24
+  4.0.0.0 /8
+  6.6.6.6/ 24
+  6.6.6.6/ 4
+ 192.168.1.1/16
+192.156.101.1/8
+`
+splitString(sampleData)
+.then(t => {
+  validateIPv4(t).then(t => {
+    console.log(t)
+    if (t.inValid.length > 0) console.log(t,"\ncheck this this are bad")
+    octentBase2Convert(t).then(t => {
+    console.log(t)
+  })
+    // const paddedBase2 = base2Padding(octentBase2Convert);
+    // const sortedBase2 = paddedBase2.sort();
+    // const comparedBase2 = binaryCompare(sortedBase2);
+    // console.log(sortedBase2)
+    // console.log(paddedBase2)
+    // console.log(comparedBase2)
+    // return sortedBase2;
+  })
+})
 
-  setDataSet1(name,data){
-    let key = name;
-    let obj = {};
-    obj[key] = data;
-    this.compare.dataSet1.push(obj)
-    console.log("PUSHED",this.compare.dataSet1)
-  }
+*/
 
-  getDataSet1(){
-    return this.compare.dataSet1;
-  }
 
-  // changes the base of a number, by default base 10 to base 2
-  setBase (){
-    return new Promise((resolve, reject) =>{
-      let newArray = [];
-      let ipList = this.sortedData;
-      ipList.map((data) =>{
-        let temp1 = [];
-        let octants = data.split(".");
-        octants.map((data1) =>{
-          let temp = parseInt(data1,10)
-          temp1.push(temp.toString(2))
-        })
-        newArray.push(temp1);
-      })
-      if (newArray){
-        this.ipBase2 = newArray;
-        resolve(newArray)
-      } else {
-        reject("Nothing to See")
-      }
+
+
+splitString(sampleData)
+.then(t =>validateIPv4(t))
+.then(t =>octentBase2Convert(t))
+.then(t =>base2Padding(t))
+.then(t =>deriveNetwork(t))
+.then(t => console.log("Test",t))
+.catch(c => console.log("CATCH",c))
+
+
+
+//cleanData oldName
+function splitString (data, splitOn = "\n"){
+  return new Promise ((resolve,reject) => {
+    const splitString = data.split(splitOn);
+    const trimString = splitString.map(d => {
+      return d.trim()
     })
-  }
+    const dataString = trimString.filter(f => f.length > 0);
+    if (dataString.length === 0) return reject(dataString);
+    return resolve(dataString);
+  })
+}
 
-  // return ip range. This is raw and uncleaned
-  getIpRange (){
-    return this.ipRange;
-  }
+function octentBase2Convert(data){
+  return new Promise ((resolve,reject) => {
+    const asBase2 = data.map(({ip,mask}) => {
+      const splitIp = ip.split(".");
+      const base2Ip = splitIp.map(d => base10Convert2(d));
+      const base2Mask = base10CidrBase2(mask);
+      return {ip:base2Ip,mask:base2Mask}
+    },[])
+    resolve(asBase2);
+  })
+}
 
-  // attempts to clean the ip list. remove leading spaces, trailling spaces and empty lines
-  cleanData (){
-    return new Promise((resolve, reject) =>{
-      let cleanedData =[];
-      let newData = this.fileData.contents.split("\n");
-      newData = newData.filter(Boolean);
-      newData.map((data) => {
-        cleanedData.push(data.trim())
-      })
-      if (cleanedData){
-        this.cleanedData = cleanedData;
-        resolve(cleanedData);
-      } else {
-        reject("Error Cleaning");
-      }
-    })
-  }
 
-  // sorts cleaned IP address list by lowest to highest. data should be base 10
-  sortData (){
-    return new Promise((resolve, reject) =>{
-      let sortedData = this.cleanedData.sort((a,b)=>{
-              let aa = a.split(".");
-              var bb = b.split(".");
-        return ( aa[0]*0x1000000 + aa[1]*0x10000 + aa[2]*0x100 + aa[3]*1 )
-             - ( bb[0]*0x1000000 + bb[1]*0x10000 + bb[2]*0x100 + bb[3]*1 );
-           })
-      if (sortedData){
-        this.sortedData = sortedData;
-        resolve(sortedData)
-      } else {
-        reject("Error Sorting");
-      }
-    })
-  }
+function base10CidrBase2 (data) {
+  return [8,16,24,32].reduce((n,o,i) => {
+    const allZero = "00000000";
+    const allOne = "11111111";
+    const cidr = data === "8" ? "255" : data;
+    const base2Cidr = base10Convert2(cidr);
+    if (n.includes(base2Cidr)) {
+      n.push(allZero)
+    } else if (cidr <= o){
+      n.push(base2Cidr)
+    } else {
+      n.push(allOne)
+    }
+    return n;
+  },[])
+}
 
-  getChunks(inputData){
-    let toChunk = inputData;
-    //console.log("Chunk DATA", toChunk)
-    let chunkMax = Math.ceil(toChunk.length * .02);
-    //console.log("CHUNK...",chunk);
-    let chunkData = [];
-    let chunkArray = [];
-    let counter = 1;
-    toChunk.map((data, index)=>{
-      if ( counter <= chunkMax){
-        counter ++
-        chunkData.push(data)
-      } else {
-        chunkData.push(data)
-        chunkArray.push(chunkData)
-        chunkData = [];
-        counter = 1;
-      }
-      //console.log(index)
-    })
+function splitIpMask (data) {
+  const splitData = data.reduce((n,o)=>{
+  const [i,m] = o.split("/").map(d=> d.trim());
+  n.push({ip:i,mask:m});
+  return n;
+  },[])
+  return splitData;
+}
+
+
+function hasIpV4 (data) {
+  //const ipRegEx = new RegExp(/(\d+.\d+.\d+.\d+$)/);
+  const ipRegEx = new RegExp(/((^\d{1,3}\.)(\d{1,3}\.)(\d{1,3}\.)(\d{1,3}))/);
+  const arrayOfBooleans = data.map(d => {
+    const coerceString = d.toString();
     // debug
-    console.log(chunkArray)
-    return chunkArray;
+    //console.log(coerceString," ",coerceString.search(ipRegEx))
+    if (coerceString.search(ipRegEx) === -1){
+      return false; // has a problem
+    } else {
+      return true; // has no problem
+    }
+  })
+  // debug
+  //console.log(arrayOfBooleans)
+  const isTrue =  (currentValue) => {
+    return currentValue === true;
   }
+  return arrayOfBooleans.every(isTrue);
+}
 
-  setSuperNet () {
-    return new Promise((resolve, reject) =>{
-      let firstIp,lastIp,nextPredict,superNet,count;
-      //holds return data
-      superNet = [];
-      // counts ip address in the array
-      count = 0;
-      // pulls ip address list
-      let dataBase2 = this.ipBase2;
-      // geneates an array of ranges
-      let makeRange = (ipArray1, ipArray2) =>{
-        let ipRange = [];
-        ipRange.push(ipArray1.join(".")+"-"+ipArray2.join("."));
-        return ipRange;
-      }
-      // converts base2 numbers to base 10
-      let baseConvert10 = (ipArray) =>{
-        let ipAddress = [];
-        ipArray.map((data) => {
-          ipAddress.push(parseInt(data, 2));
-        })
-        return ipAddress;
-      }
-      // converts to base 10 and generates next number in sequence, returns base 2 number
-      let nextP = (binary) => {
-        let baseTen = parseInt(binary, 2);
-        baseTen.toString(2)
-        baseTen ++
-        return baseTen.toString(2);
-      }
-      // generates sytehntic base 2 address. used in IP comparison
-      let syntheticIp = (ipArray) => {
-        let syntheticIp = ""
-        ipArray.map((data) => {
-          // debug
-          /*
-          console.log(data.toString().trim().charCodeAt())
-          console.log(typeof('data'))
-          */
-          for (let index = 0; index < data.length; ++index) {
-            let charCode = data.charCodeAt(index);
-            if (charCode == 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57) {
-              // debug
-              /*
-              console.log("char syntheticIp " + index + ": " + data.charCodeAt(index));
-              console.log("hit ", charCode, " charCode  ", String.fromCharCode(charCode))
-              */
-              syntheticIp += String.fromCharCode(charCode)
-            }
-          }
-        })
-        return syntheticIp;
-      }
-      // processes the cleaned and verified IP address list.
-      // attempts to create IP address ranges where possiable
-      dataBase2.map((data) =>{
-        count ++;
-        if (lastIp){
-          // debug
-          /*
-          console.log (" FIRST_IP==   ",firstIp," LAST_IP==   ",lastIp," THIS_IP==   ",data)
-          console.log (" PREDICTED_IP==   ",nextPredict)
-          console.log(typeof('lastIp[0]'),typeof('lastIp[1]'),typeof('lastIp[2]'),typeof('lastIp[3]'))
-          console.log(lastIp[0].length,lastIp[1].length,lastIp[2].length,lastIp[3].length)
-          */
-          let ip1 = syntheticIp(data);
-          let ip2 = syntheticIp(nextPredict);
-          // debug
-          //console.log("Was the prediction successful:  ",ip1 === ip2)
-          if (ip1 == ip2) {
-            lastIp = nextPredict;
-            nextPredict = [data[0],data[1],data[2],nextP(data[3])]
-            if (dataBase2.length == count){
-              let firstIpBase10 = baseConvert10(firstIp);
-              let lastIpBase10 = baseConvert10(lastIp);
-              // debug
-              //console.log("*********",makeRange(firstIpBase10,lastIpBase10));
-              superNet.push(makeRange(firstIpBase10,lastIpBase10));
-            }
-          } else {
-            let firstIpBase10 = baseConvert10(firstIp);
-            let lastIpBase10 = baseConvert10(lastIp);
-            // debug
-            //console.log("*********",makeRange(firstIpBase10,lastIpBase10));
-            superNet.push(makeRange(firstIpBase10,lastIpBase10));
-            if (dataBase2.length == count){
-              // debug
-              // console.log("END OF ARRAY : ")
-              let firstIpBase10 = baseConvert10(data);
-              let lastIpBase10 = baseConvert10(data);
-              // debug
-              // console.log("*********",makeRange(firstIpBase10,lastIpBase10));
-              superNet.push(makeRange(firstIpBase10,lastIpBase10));
-            } else {
-              firstIp = data;
-              lastIp = firstIp;
-              nextPredict = [data[0],data[1],data[2],nextP(data[3])]
-            }
-          }
-        } else {
-          firstIp = data;
-          lastIp = firstIp;
-          nextPredict = [data[0],data[1],data[2],nextP(data[3])]
-          // debug
-          /*
-          console.log (" FIRST_IP==   ",firstIp," NEXT_PREDICTION==   ",nextPredict," THIS_IP==   ",data)
-          console.log("###################################################################################")
-          */
-        }
-      })
-      if (superNet){
-        this.ipRange = superNet;
-        resolve(superNet)
-      } else {
-        // catches final error
-        reject("Something is wrong with the dataset")
-      }
-
-    })
+function hasCidr (data) {
+  const cidrRegExd = new RegExp(/(\/\d+)/);
+  const arrayOfBooleans = data.reduce((n,o) => {
+    const coerceString = o.toString();
+    //debug
+    //console.log(coerceString," ",coerceString.search(cidrRegExd))
+    if (coerceString.search(cidrRegEx) === -1){
+      n.push(false);
+    } else {
+      n.push(true);
+    }
+    return n;
+  },[])
+  //console.log(arrayOfBooleans)
+  const isTrue =  (currentValue) => {
+    return currentValue === true;
   }
+  return arrayOfBooleans.every(isTrue);
+}
 
-  // Adds a Debugs for the contest of the Ticket POST HTTP request
-  debug() {
-    console.log("inputFile: "+this.inputFile,'\n',"outputFile: "+outputFile.uri,'\n')
+function keyHasValue (data) {
+  const test = data.map(d => {
+    // if all is good this should return an empty array.
+    return Object.keys(d).filter(f => d[f] === undefined || !d[f].length)
+  });
+  if (test.length > 0) {
+    return false; // there is a problem
+  } else {
+    return true; // there is no problem
   }
 }
 
-module.exports = new dataTools()
+function validateIPv4 (data){
+  return new Promise ((resolve,reject) => {
 
-function cleanData (fileData){
-  let cleanedData =[];
-  let newData = fileData.split("\n");
-  newData = newData.filter(Boolean);
-  newData.map((data) => {
-    cleanedData.push(data.trim())
+    if (!Array.isArray(data) || typeof(data) !== "object") {
+      return reject(data);
+    } else if (data.length === 0){
+      return reject(data);
+    }
+    const ipCheckResult = hasIpV4(data);
+    if (!ipCheckResult) return reject(data);
+    const cidrCheckResult = hasCidr(data);
+    if (!cidrCheckResult) return reject(data);
+    const splitIpMaskResult = splitIpMask(data);
+    //if (keyHasValue(splitIpMaskResult)) return reject(splitIpMaskResult)
+    return resolve(splitIpMaskResult);
   })
-  if (cleanedData){
-    this.cleanedData = cleanedData;
-    return console.log(cleanedData);
-  } else {
-    return console.log("Error Cleaning");
-  }
+}
+
+// testing in browser
+
+function pad (data,padding=8) {
+  const paddded = data.map(d => {
+    const coerceString = d.toString();
+    if (coerceString.length < padding) {
+      const neededPadding = padding - coerceString.length;
+      let tempString = "";
+      while (tempString.length < (neededPadding)){
+        tempString += "0";
+      }
+      const newString = tempString += coerceString;
+      return newString;
+
+    } else {
+      return d;
+    }
+  })
+  return paddded;
+}
+
+function base2Padding(data) {
+  return new Promise((resolve,reject) => {
+    const padMe = data.reduce((n,o) => {
+      const {ip,mask} = o;
+      const padIp = pad(ip)
+      const padMask = pad(mask)
+      n.push({ip:padIp,mask:padMask});
+      return n;
+    },[])
+    resolve(padMe);
+  })
+}
+
+
+function base10Convert2 (data) {
+  const coerceInt = +data;
+  if (isNaN(coerceInt)) false // do better error checking
+  const coerceIntBase2 = coerceInt.toString(2);
+  return coerceIntBase2;
+}
+// type of theorpy/treatment EMDR. Trama theorypy, over active limic system "fight or flight". Subconious physoclogical trama.
+// triggered by memories. Sensory. Less time, less
+
+// Battery of assesment is a type of assement towards something. Towards Diganosis recomendations for treatment, what are you trying to understand about the persons personality.
+// can be done in a way that is theoputic, if you engage with questions. more time and energy. More Achodemic stuff
+
+function ipOctetCompare (a,b){
+  return (parseInt(a,2) & parseInt(b,2));
+}
+
+function binaryCompare (data) {
+  const compare = data.reduce((n,o)=>{
+    const [oA1,oB1,oC1,oD1] = o; // this might not be needed but it's nice to have
+    let tempRelated = {[o]:[]};
+    let tempUnRelated = {[o]:[]};
+    for (const ip of data) {
+      const [oA2,oB2,oC2,oD2] = ip; // this might not be needed but it's nice to have
+      const oct = ipOctetCompare;
+      const result = [oct(oA1,oA2),oct(oB1,oB2),oct(oC1,oC2),oct(oD1,oD2)];
+      if (result.reduce((n,o)=> n+o,0) === 0) {
+        tempUnRelated[o].push(result)
+      } else {
+        tempRelated[o].push(result)
+      }
+    }
+    n.related.push(tempRelated);
+    n.unRelated.push(tempUnRelated);
+    return n;
+  },{related:[],unRelated:[]});
+  return compare;
+}
+
+function deriveNetwork (data) {
+  return new Promise((resolve,reject) => {
+    const oct = ipOctetCompare;
+    const networkData = data.reduce((n,o)=>{
+      const [oA1,oB1,oC1,oD1] = o.ip;
+      const [oA2,oB2,oC2,oD2] = o.mask;
+
+      let tempRelated = {[o]:[]};
+      let tempUnRelated = {[o]:[]};
+      const network = [oct(oA1,oA2),oct(oB1,oB2),oct(oC1,oC2),oct(oD1,oD2)]
+      const networkBase2 = network.map(d=>base10Convert2(d));
+      // debug
+      // console.log(o.ip,o.mask,networkBase2)
+      n.push({ip:o.ip,mask:o.mask,network:pad(networkBase2)})
+      return n;
+    },[]);
+    for (const d of networkData) {
+      const {ip,mask,network} = d;
+      const subOfArray = network.reduce((n,o) => n + +o,0);
+      if (subOfArray === 0) return reject(networkData)
+    }
+    return resolve(networkData);
+  })
 }
