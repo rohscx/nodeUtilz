@@ -35,7 +35,10 @@ splitString(sampleData)
 
 */
 
-
+/*
+sameple data2
+"10.80.23.253/24\n10.72.202.205/28\n10.72.245.122/30\n…10.80.123.252/24\n67.61.168.114/30\n10.80.23.252/24"
+*/
 
 
 splitString(sampleData)
@@ -268,4 +271,30 @@ function deriveNetwork (data) {
     }
     return resolve(networkData);
   })
+}
+
+function subnetMask (number){
+  let n = number;
+  let emptyArray = [];
+  do {
+    // code block to be executed
+    n = minusEight(n);
+    emptyArray.push("11111111")
+  }
+  while (n > 8);
+  emptyArray.push(padZero(n))
+  return emptyArray
+}
+
+function padZero (n){
+  let newString=""
+  for (let y = 0 ; y!=n; y++) {
+    newString =  newString+"1"
+  }
+
+
+  do {
+    newString = newString + "0";
+  } while (newString.length < 8)
+  return newString;
 }
