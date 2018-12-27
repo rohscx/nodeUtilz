@@ -1,23 +1,25 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var request = require("request");
 
-module.exports = function asyncRequestDelay (optionsObj,delay) {
+module.exports = function asyncRequestDelay (optionsObj,delay,validator) {
   var options = optionsObj;
   // options should b an array of fully formed options
-  return new Promise(resolve => {
+  return new Promise((resolve,reject) => {
     Promise.all(
       options.map((d,i) => {
         //console.log(d)
-        return new Promise(resolve => {
+        return new Promise((resolve,reject) => {
           setTimeout(() => {
             request(d, function (error, response, body) {
               if (error) throw new Error(error);
               //console.log(body);
-              resolve(body);
+              if(validator) return validator(body,resolve,reject,d)
+              // resolve(body);
            });
          },i*delay)
         })
      })
-    ).then(t => resolve(t))
+   ).then(t => resolve(t))
+   .catch(c => reject(c))
  });
 }

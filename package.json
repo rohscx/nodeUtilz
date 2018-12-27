@@ -1,0 +1,22 @@
+{
+  "name": "nodeutilz",
+  "version": "1.0.0",
+  "description": "my homebrew appliation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohscx/nodeUtilz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohscx/nodeUtilz/issues"
+  },
+  "homepage": "https://github.com/rohscx/nodeUtilz#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}

@@ -3,7 +3,7 @@ const asyncRequest = require('../request/asyncRequest.js')
 
 
 module.exports = function getPrimeData (requestOptions) {
-  return new Promise(function(res) {
+  return new Promise(function(res,rej) {
       function asyncResponseObj (eventEmitter,requestOptions) {
         this.pagination = {
            items: [],
@@ -15,7 +15,14 @@ module.exports = function getPrimeData (requestOptions) {
          };
         this.requestOptions = requestOptions;
         this.proccessResponse = function (response) {
-          const asJson = JSON.parse(response);
+          let asjson ='';
+          if(response) {
+              try {
+                  asJson = JSON.parse(response);
+              } catch(e) {
+                  return rej(response); // error checking the above!
+              }
+          }
           asJson.queryResponse.entity.map(d => this.pagination.items.push(d));
           console.log(`Recieved page: ${asJson.queryResponse['@first']}`)
           if (this.pagination.quotaRemaining + 100 == this.pagination.items.length) {
@@ -46,7 +53,7 @@ module.exports = function getPrimeData (requestOptions) {
             const rateLimited = this.pagNumbers.map((d,i) => {
               setTimeout(()=> {
                 asyncRequest(this.requestOptions(d)).then(t => eventEmitter.emit('newData',t));
-              },i*1000)
+              },i*2000)
             })
 
           } else {

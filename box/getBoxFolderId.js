@@ -3,25 +3,23 @@ const logCapture = require('../debug/logCapture.js');
 module.exports = function boxFolders (BoxSDK,boxSecurityObject,boxAppUserId,folderId,callBack) {
   const myLogs = new logCapture()
   // check for missing options
-  [BoxSDK,boxSecurityObject,boxAppUserId,folderId,callBack].map((d,i) => {
-    const errorMessage = `missing options: ${getParamNames(boxFolders)[i]}`;
-    //console.log(typeof(d))
-    if (!d) {
-      myLogs.addLog(errorMessage);
-      myLogs.getLogs();
-      //console.log(errorMessage);
-      return errorMessage;
-    }
-  })
+
 
   const checkForSubFolders = (response) => {
     if (response.length > 0) {
-      callBack(response.map(({name,id,type}) => [id,type,name]).join("\n")) // return folder information to the callBack
+      const basicFolderData = response.reduce((n,o) => {
+        const {name,id,type} = o
+        n.push({name,id,type})
+        return n;
+      },[])
+      callBack(basicFolderData) // return folder information to the callBack
       //console.log(response.map(({name,id,type}) => [id,type,name]).join("\n"));
       response
       .map(d => appUserClient.folders.getItems(d.id,{fields:"name,id,created_at"})
       .then(t => {checkForSubFolders(generateFolderObject(t.entries))})
       );
+    } else {
+      callBack(response)
     }
   };
   const generateFolderObject = (entriesArray) => {
