@@ -10,7 +10,7 @@ module.exports = function octentBase2Convert(data){
       const base2Ip = splitIp.map(d => base10Convert2(d));
       const base2Mask = subnetMask(mask);
       const hosts = availableHosts(mask);
-      return {ip:base2Ip,mask:base2Mask,hosts}
+      return {ip:base2Ip,mask:base2Mask,hosts:hosts}
     },[])
     resolve(asBase2);
   })
