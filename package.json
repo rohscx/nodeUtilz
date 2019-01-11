@@ -18,5 +18,9 @@
   "homepage": "https://github.com/rohscx/nodeUtilz#readme",
   "dependencies": {
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-google": "^0.11.0"
   }
 }
