@@ -1,4 +1,4 @@
-const networkScope = require('./cusfun/networkScope.js');
+const networkScope = require('./cusFun/networkScope.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 
