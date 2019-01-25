@@ -30,11 +30,12 @@ module.exports = function(data) {
   */
 
   const subOptionType = 'f1';
-  const subOptionLength = '0' + (ipArray.length * 4).toString();
+  const subOptionLength = (ipArray.length * 4);
+  const subOptionLengthFix = [subOptionLength.toString(16)].map((d) => d.length > 1 ? d : '0'+d);
   const base16IpV4 = ipArray.map((d) => {
     const split = d.split('.');
     const splitToInt = split.map((d) => +d);
     return splitToInt.map((d) => d.toString(16)).map((d) => d.length > 1 ? d : '0'+d).join('');
   });
-  return subOptionType + subOptionLength + base16IpV4.join('');
+  return subOptionType + subOptionLengthFix + base16IpV4.join('');
 };
