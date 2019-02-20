@@ -3,11 +3,11 @@
 module.exports = function(data, options = {}) {
   const macs = (string) => {
     return string.split('\n')
-        .map((d) => d.split(' ').filter((f) => f.search(RegExp(/([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})/)) != -1))
+        .map((d) => d.split(' ').filter((f) => f.search(RegExp(/(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2})/)) != -1))
         .filter((f )=> f.length > 0).map((d) => d.join(''));
   };
   const stripDeliminator = (array) => {
-    return array.map((d) => d.replace(RegExp(/([-.])/, 'g'), ''));
+    return array.map((d) => d.replace(RegExp(/([-.:])/, 'g'), ''));
   };
   const addDeliminator = (array, ...options) => {
     const [deliminator = ':', spacing = 2] = options;
