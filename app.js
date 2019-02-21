@@ -6,6 +6,7 @@ const deDupeObjArray = require('./cusfun/deDupeObjArray.js');
 const parseMacFromString = require('./cusfun/parseMacFromString.js');
 const ciscoOption43 = require('./cusfun/ciscoOption43.js');
 const standardDeviation = require('./cusfun/standardDeviation.js');
+const dateFromFileTime = require('./cusfun/dateFromFileTime.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const asyncRequest = require('./request/asyncRequest.js');
@@ -34,4 +35,5 @@ module.exports = {
   getFlattenArray: flattenArray,
   getDedupedObj: deDupeObjArray,
   getStdev: standardDeviation,
+  getDateFromFileTime: dateFromFileTime,
 };
