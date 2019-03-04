@@ -7,6 +7,8 @@ const parseMacFromString = require('./cusfun/parseMacFromString.js');
 const ciscoOption43 = require('./cusfun/ciscoOption43.js');
 const standardDeviation = require('./cusfun/standardDeviation.js');
 const dateFromFileTime = require('./cusfun/dateFromFileTime.js');
+const sha1Hash = require('./cusfun/sha1Hash.js');
+const hostCertProperties = require('./cusfun/hostCertProperties.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const asyncRequest = require('./request/asyncRequest.js');
@@ -36,4 +38,6 @@ module.exports = {
   getDedupedObj: deDupeObjArray,
   getStdev: standardDeviation,
   getDateFromFileTime: dateFromFileTime,
+  getSha1Hash: sha1Hash,
+  getHostCertProperties: hostCertProperties,
 };
