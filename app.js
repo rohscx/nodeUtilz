@@ -16,6 +16,7 @@ const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
 const writeFile = require('./file/writeFile.js');
 const readDirectory = require('./file/readDirectory.js');
+const readFileDataNn = require('./file/readFileDataNn.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 
 
@@ -40,4 +41,5 @@ module.exports = {
   getDateFromFileTime: dateFromFileTime,
   getSha1Hash: sha1Hash,
   getHostCertProperties: hostCertProperties,
+  readFileDataNn: readFileDataNn,
 };
