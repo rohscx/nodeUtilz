@@ -7,16 +7,16 @@ const myEmitter = new EventEmitter();
 
 // example code
 /*
-nodeUtliz = require('../nodeUtilz/app.js')
-test = new nodeUtliz.readFileDataNn('./',{separator:'-------------------------',searchFilter:'(C2960CX|WS-C3560CX)',outPutFileName: 'jsonBlob.json'})
+nodeUtliz = require('../nodeUtilz/app.js');
+test = new nodeUtliz.readFileDataNn('./import/',{separator:'-------------------------',searchFilter:'(C2960CX|WS-C3560CX)',outPutPath: './export/', outPutFileName: 'jsonBlob.json'});
 test.listDir()
 test.getFileData()
 test.getDataObj()
 test.getDataJson()
 test.getDataObjFile().then(console.log)
 */
-module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutFileName: 'jsonBlob.json'}) {
-  const {separator, searchFilter, outPutFileName} = opts;
+module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json'}) {
+  const {separator ='\n', searchFilter = '*', outPutPath = './', outPutFileName = 'jsonBlob.json'} = opts;
   const rootDir = relativePath+'/';
   const fileData = [];
   const fileNameFilter = [outPutFileName];
@@ -28,7 +28,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.getFileData = function() {
     myEmitter.on('fileRead', (fileName, data) => {
-      console.log('File Data Event');
+      console.log(`Data Load Event: ${fileName}`);
       const splitData = data.split(separator)
           .filter((f) => f.length > 1)
           .filter((f) => f.toLowerCase().search(new RegExp(searchFilter.toLowerCase())) != -1)
@@ -55,7 +55,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     return (JSON.stringify(fileData, null, '/t'));
   };
   this.getDataObjFile = async function(data = fileData) {
-    const relativeFilePath = relativePath+outPutFileName;
+    const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');
   };
