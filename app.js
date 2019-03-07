@@ -4,6 +4,8 @@ const csvFromJson = require('./cusfun/csvFromJson.js');
 const flattenArray = require('./cusfun/flattenArray.js');
 const deDupeObjArray = require('./cusfun/deDupeObjArray.js');
 const parseMacFromString = require('./cusfun/parseMacFromString.js');
+const parseIpFromString = require('./cusfun/parseIpFromString.js');
+const reverseIpLookup = require('./cusfun/reverseIpLookup.js');
 const ciscoOption43 = require('./cusfun/ciscoOption43.js');
 const standardDeviation = require('./cusfun/standardDeviation.js');
 const dateFromFileTime = require('./cusfun/dateFromFileTime.js');
@@ -34,6 +36,8 @@ module.exports = {
   prtgOptions: prtgOptions,
   writeFile: writeFile,
   getMacFromString: parseMacFromString,
+  getIpFromString: parseIpFromString,
+  getReverseLookup: reverseIpLookup,
   getDirContents: readDirectory,
   getFlattenArray: flattenArray,
   getDedupedObj: deDupeObjArray,
