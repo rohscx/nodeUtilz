@@ -11,6 +11,8 @@ const standardDeviation = require('./cusfun/standardDeviation.js');
 const dateFromFileTime = require('./cusfun/dateFromFileTime.js');
 const sha1Hash = require('./cusfun/sha1Hash.js');
 const hostCertProperties = require('./cusfun/hostCertProperties.js');
+const readFileDataNn = require('./cusfun/readFileDataNn.js');
+const nodePing = require('./cusfun/nodePing.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const asyncRequest = require('./request/asyncRequest.js');
@@ -18,7 +20,6 @@ const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
 const writeFile = require('./file/writeFile.js');
 const readDirectory = require('./file/readDirectory.js');
-const readFileDataNn = require('./file/readFileDataNn.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 
 
@@ -46,4 +47,5 @@ module.exports = {
   getSha1Hash: sha1Hash,
   getHostCertProperties: hostCertProperties,
   readFileDataNn: readFileDataNn,
+  postNodePing: nodePing,
 };

@@ -1,9 +1,10 @@
-var fs = require('fs');
+const fs = require('fs');
 
-module.exports = function readFile (relativePath,opts) {
+module.exports = function readFile(relativePath, opts) {
   return new Promise((res, rej) => {
     fs.readFile(relativePath, opts, (err, data) => {
-        if (err) rej(err)
-        else res(data)
-    })
-})}
+      if (err) rej(err);
+      else res(data);
+    });
+  });
+};

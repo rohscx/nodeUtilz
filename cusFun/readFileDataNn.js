@@ -1,6 +1,6 @@
-const readDirectory = require('./readDirectory.js');
-const readFile = require('./readFile.js');
-const writeFile = require('./writeFile.js');
+const readDirectory = require('.././file/readDirectory.js');
+const readFile = require('.././file/readFile.js');
+const writeFile = require('.././file/writeFile.js');
 const EventEmitter = require('events');
 
 const myEmitter = new EventEmitter();
@@ -20,13 +20,21 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   const rootDir = relativePath+'/';
   const fileData = [];
   const fileNameFilter = [outPutFileName];
-  this.listDir = function() {
+  this.getListDir = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
       console.log(fileNames);
     }).catch(console.log);
   };
-  this.getFileData = function() {
+  this.getDataObj = function() {
+    return (fileData);
+  };
+  this.getDataStringify = function() {
+    return (JSON.stringify(fileData, null, '/t'));
+  };
+  this.putDirData = function() {
+    // delete arrayData / clear arraData
+    this.deleteDataObj();
     myEmitter.on('fileRead', (fileName, data) => {
       console.log(`Data Load Event: ${fileName}`);
       const splitData = data.split(separator)
@@ -48,15 +56,34 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
         })
         .catch(console.log);
   };
-  this.getDataObj = function() {
-    return (fileData);
+  this.postCombinedJson = function() {
+    myEmitter.on('fileRead', (fileName, data) => {
+      console.log(`Data Load Event: ${fileName} `);
+      const parsedJson = JSON.parse(data);
+      if (typeof(parsedJson) == 'object') {
+        fileData.push({[fileName]: parsedJson});
+      } else {
+        console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
+        fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
+      }
+    });
+    readDirectory(rootDir)
+        .then((files) => {
+          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+          for (const fileName of fileNames) {
+            readFile(relativePath+fileName, 'utf8').then((data) => {
+              myEmitter.emit('fileRead', fileName, data);
+            }).catch(console.log);
+          }
+        })
+        .catch(console.log);
   };
-  this.getDataJson = function() {
-    return (JSON.stringify(fileData, null, '/t'));
-  };
-  this.getDataObjFile = async function(data = fileData) {
+  this.postWriteDataToDir = async function(data = fileData) {
     const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');
+  };
+  this.deleteDataObj = function() {
+    fileData.length = 0;
   };
 };

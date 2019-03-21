@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('fs');
 // retrieve the last modified date of a file
 // sameple output, mtime is the last modified time.
 /*
@@ -19,10 +19,11 @@ var fs = require('fs');
 */
 
 
-module.exports = function readFile (relativePath,callBack) {
+module.exports = function readFile(relativePath, callBack) {
   return new Promise((res, rej) => {
-    fs.stat(relativePath,(err, stats) => {
-        if (err) rej(err)
-        else res(stats)
-    })
-})}
+    fs.stat(relativePath, (err, stats) => {
+      if (err) rej(err);
+      else res(stats);
+    });
+  });
+};
