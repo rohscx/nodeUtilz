@@ -31,9 +31,15 @@ module.exports = function(dataArray) {
     myEmitter.on('finished', (data) => {
       resolve(data);
     });
+    const isAlive = (data) => {
+      const {alive, numeric_host} = data;
+      const msg = alive ? 'host ' + numeric_host + ' is alive' : 'host ' + numeric_host + ' is dead';
+      return msg;
+    };
     hosts.forEach(function(host, index) {
       ping.promise.probe(host)
           .then(function(res) {
+            console.log(isAlive(res));
             myEmitter.emit('response', res);
             if (hosts.length == (index + 1)) myEmitter.emit('finished', results);
           });
