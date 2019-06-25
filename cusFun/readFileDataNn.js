@@ -9,10 +9,11 @@ const myEmitter = new EventEmitter();
 /*
 nodeUtliz = require('../nodeUtilz/app.js');
 test = new nodeUtliz.readFileDataNn('./import/',{separator:'-------------------------',searchFilter:'(C2960CX|WS-C3560CX)',outPutPath: './export/', outPutFileName: 'jsonBlob.json'});
-test.listDir()
-test.getFileData()
-test.getDataObj()
+test.listDirFiles() // list the dir. Show files before loaded
+test.readDirFiles() // load file data from disk
+test.getDataObj() // generate an object
 test.getDataJson()
+saveDataFile()
 test.getDataObjFile().then(console.log)
 */
 module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json'}) {
@@ -20,7 +21,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   const rootDir = relativePath+'/';
   const fileData = [];
   const fileNameFilter = [outPutFileName];
-  this.getListDir = function() {
+  this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
       console.log(fileNames);
@@ -29,10 +30,10 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   this.getDataObj = function() {
     return (fileData);
   };
-  this.getDataStringify = function() {
+  this.getStringifiedDataObject = function() {
     return (JSON.stringify(fileData, null, '/t'));
   };
-  this.putDirData = function() {
+  this.readDirFiles = function() {
     // delete arrayData / clear arraData
     this.deleteDataObj();
     myEmitter.on('fileRead', (fileName, data) => {
@@ -78,7 +79,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
         })
         .catch(console.log);
   };
-  this.postWriteDataToDir = async function(data = fileData) {
+  this.saveDataFile = async function(data = fileData) {
     const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');

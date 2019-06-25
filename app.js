@@ -19,6 +19,7 @@ const asyncRequest = require('./request/asyncRequest.js');
 const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
 const writeFile = require('./file/writeFile.js');
+const fileStats = require('./file/fileStats.js');
 const readDirectory = require('./file/readDirectory.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 
@@ -36,6 +37,7 @@ module.exports = {
   readFile: readFile,
   prtgOptions: prtgOptions,
   writeFile: writeFile,
+  getFileStats:fileStats,
   getMacFromString: parseMacFromString,
   getIpFromString: parseIpFromString,
   getReverseLookup: reverseIpLookup,
