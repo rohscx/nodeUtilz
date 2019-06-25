@@ -37,7 +37,7 @@ module.exports = {
   readFile: readFile,
   prtgOptions: prtgOptions,
   writeFile: writeFile,
-  getFileStats:fileStats,
+  getFileStats: fileStats,
   getMacFromString: parseMacFromString,
   getIpFromString: parseIpFromString,
   getReverseLookup: reverseIpLookup,
