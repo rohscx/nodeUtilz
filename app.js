@@ -13,6 +13,7 @@ const sha1Hash = require('./cusFun/sha1Hash.js');
 const hostCertProperties = require('./cusFun/hostCertProperties.js');
 const readFileDataNn = require('./cusFun/readFileDataNn.js');
 const nodePing = require('./cusFun/nodePing.js');
+const sshCredentialTest = require('./cusFun/sshCredentialTest.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const asyncRequest = require('./request/asyncRequest.js');
@@ -22,6 +23,7 @@ const writeFile = require('./file/writeFile.js');
 const fileStats = require('./file/fileStats.js');
 const readDirectory = require('./file/readDirectory.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
+const btoa = require('btoa');
 
 
 module.exports = {
@@ -50,4 +52,6 @@ module.exports = {
   getHostCertProperties: hostCertProperties,
   readFileDataNn: readFileDataNn,
   postNodePing: nodePing,
+  getBasicAuthString: btoa,
+  postTestSSH: sshCredentialTest,
 };

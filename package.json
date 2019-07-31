@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/rohscx/nodeUtilz#readme",
   "dependencies": {
+    "btoa": "^1.2.1",
+    "node-ssh": "^6.0.0",
     "ping": "^0.2.2",
     "request": "^2.88.0"
   },

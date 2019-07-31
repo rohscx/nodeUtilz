@@ -21,27 +21,37 @@ const EventEmitter = require('events');
 
 module.exports = function(dataArray) {
   const myEmitter = new EventEmitter();
-  const hosts = dataArray;
+  const hosts = dataArray.filter((f) => f.length > 0);
 
   return new Promise((resolve) => {
-    const results = [];
-    myEmitter.on('response', (data) => {
-      results.push(data);
+    const pingResult = {alive:[],dead:[]};
+    myEmitter.on('response', (data, state) => {
+      const {alive,numeric_host} = data;
+      const msg = alive ? 'host ' + numeric_host + ' is alive' : 'host ' + numeric_host + ' is dead';
+      if (state) {
+        pingResult.alive.push(numeric_host)
+      } else {
+        pingResult.dead.push(numeric_host)
+      };;
+      console.log(msg);
     });
     myEmitter.on('finished', (data) => {
-      resolve(data);
+      resolve(pingResult);
     });
+    
     const isAlive = (data) => {
-      const {alive, numeric_host} = data;
-      const msg = alive ? 'host ' + numeric_host + ' is alive' : 'host ' + numeric_host + ' is dead';
-      return msg;
+      const {alive} = data;
+      return alive;
     };
+    
     hosts.forEach(function(host, index) {
+      counter = 0
       ping.promise.probe(host)
           .then(function(res) {
-            console.log(isAlive(res));
-            myEmitter.emit('response', res);
-            if (hosts.length == (index + 1)) myEmitter.emit('finished', results);
+            const pingState = isAlive(res);
+            myEmitter.emit('response', res, pingState);
+            counter ++;
+            if (hosts.length == (counter)) myEmitter.emit('finished', pingResult);
           });
     });
   });
