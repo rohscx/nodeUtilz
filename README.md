@@ -7,7 +7,7 @@ My NODE .js toolkit
     
 ## Client Examples
 
-## postTestSSH:
+### postTestSSH:
 ```js
 const app = require("./nodeUtilz/app.js");
 app.postTestSSH(["10.64.40.226"],'jSnow',"nedStarkIsNotDead").then((t) => console.log(t))
