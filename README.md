@@ -18,3 +18,9 @@ app.postTestSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then((t) => conso
 const app = require("./nodeUtilz/app.js");
 app.postNodePing(["8.8.8.8"]).then((t) => console.log(t));
 ```
+
+### getMacFromString
+```js
+const app = require("./nodeUtilz/app.js");
+app.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
+```
