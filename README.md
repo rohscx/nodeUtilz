@@ -29,7 +29,7 @@ util.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
 
 ### getPrimeDeviceProperties
 ```js
-auth = {
+opts = {
     allowed:[]
 };
 util.getPrimeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
