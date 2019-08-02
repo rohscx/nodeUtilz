@@ -4,23 +4,25 @@ My NODE .js toolkit
 ## Installation
 
     npm install
-    
+
 ## Method Utilization Examples
+
+### API VERSION 1
+```js
+const util = require("./nodeUtilz/app.js");
+```
 
 ### postTestSSH:
 ```js
-const app = require("./nodeUtilz/app.js");
-app.postTestSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then((t) => console.log(t));
+util.postTestSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
 ```
 
 ### postNodePing
 ```js
-const app = require("./nodeUtilz/app.js");
-app.postNodePing(["8.8.8.8"]).then((t) => console.log(t));
+util.postNodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```
 
 ### getMacFromString
 ```js
-const app = require("./nodeUtilz/app.js");
-app.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
+util.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
 ```
