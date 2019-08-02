@@ -8,6 +8,7 @@ const parseIpFromString = require('./cusFun/parseIpFromString.js');
 const reverseIpLookup = require('./cusFun/reverseIpLookup.js');
 const ciscoOption43 = require('./cusFun/ciscoOption43.js');
 const standardDeviation = require('./cusFun/standardDeviation.js');
+const primeDeviceProperties = require('./cusFun/primeDeviceProperties.js');
 const dateFromFileTime = require('./cusFun/dateFromFileTime.js');
 const sha1Hash = require('./cusFun/sha1Hash.js');
 const hostCertProperties = require('./cusFun/hostCertProperties.js');
@@ -54,4 +55,5 @@ module.exports = {
   postNodePing: nodePing,
   getBasicAuthString: btoa,
   postTestSSH: sshCredentialTest,
+  getPrimeDeviceProperties: primeDeviceProperties
 };

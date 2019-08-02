@@ -17,11 +17,10 @@ module.exports = function(dataArray,uName,uPassword) {
       const msg = state ? 'host ' + ip + ' is alive' : 'host ' + ip + ' is dead' + ' because ' + message;
       console.log(msg);
       if (state) {
-        pingResult.alive.push(ip)
-      } else {
-        pingResult.dead.push(ip)
-      };;
-      console.log(message, level);
+        pingResult.alive.push(ip);
+        } else {
+        pingResult.dead.push(ip);
+      };
     });
     myEmitter.on('finished', () => {
       resolve(pingResult);
@@ -29,7 +28,7 @@ module.exports = function(dataArray,uName,uPassword) {
     
     const isAlive = (data) => {
       const {level} = data;
-      if (data.message.length > 16) {
+      if (data.message) {
         return false;
       } else {
         return true;
@@ -42,15 +41,17 @@ module.exports = function(dataArray,uName,uPassword) {
         host: host,
         username: uName,
         port: 22,
-        password: uPassword,
+        password: JSON.stringify(uPassword),
         tryKeyboard: true,
         onKeyboardInteractive: (name, instructions, instructionsLang, prompts, finish) => {
             if (prompts.length > 0 && prompts[0].prompt.toLowerCase().includes('password')) {
+                // debug
+                //console.log("***PASSWORD DEBUG***",uPassword); 
                 finish([uPassword])
             }
           }
       }).then((t) => {
-          myEmitter.emit('response', t, host, isAlive(c));
+          myEmitter.emit('response', t, host, isAlive(t));
           counter ++;
           if (hosts.length == (counter)) myEmitter.emit('finished', t)
       }).catch((c) => {
