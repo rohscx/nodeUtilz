@@ -26,3 +26,11 @@ util.postNodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```js
 util.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
 ```
+
+### getPrimeDeviceProperties
+```js
+auth = {
+    allowed:[]
+};
+util.getPrimeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
+```
