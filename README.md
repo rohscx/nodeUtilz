@@ -27,14 +27,23 @@ util.nodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 util.macFromString('cc70.ed27.6781',{format:[":", 2]});
 ```
 
-### deviceProperties
+### primeDeviceProperties
 ```js
 opts = {
     allowed:[]
 };
 util.primeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
 ```
+
 ### mergeObjecs
 ```js
 const newObject = util.mergeObjecs([{a:1},{b:2},{c:3}]);
+```
+
+### iseDeviceGroups
+```js
+opts = {
+    allowed:[]
+};
+util.iseDeviceGroups(["homeSwitc","spaceRou"],"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
