@@ -71,3 +71,8 @@ opts = {
 };
 util.iseEndpointUpdate(["<DEVICE_ID1>","<DEVICE_ID2>"],"<GROUP_ID>",<"DESCRIPTION">,"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
+
+### filterBadIpV4
+```js
+util.filterBadIpV4(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
+```
