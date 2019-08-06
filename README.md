@@ -12,25 +12,29 @@ My NODE .js toolkit
 const util = require("./nodeUtilz/app.js");
 ```
 
-### postTestSSH:
+### testSSH:
 ```js
-util.postTestSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
+util.testSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
 ```
 
-### postNodePing
+### nodePing
 ```js
-util.postNodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
+util.nodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```
 
-### getMacFromString
+### macFromString
 ```js
-util.getMacFromString('cc70.ed27.6781',{format:[":", 2]});
+util.macFromString('cc70.ed27.6781',{format:[":", 2]});
 ```
 
-### getPrimeDeviceProperties
+### deviceProperties
 ```js
 opts = {
     allowed:[]
 };
-util.getPrimeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
+util.primeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
+```
+### mergeObjecs
+```js
+const newObject = util.mergeObjecs([{a:1},{b:2},{c:3}]);
 ```
