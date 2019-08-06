@@ -47,3 +47,27 @@ opts = {
 };
 util.iseDeviceGroups(["homeSwitc","spaceRou"],"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
+
+### iseEndpointMacInfo
+```js
+opts = {
+    allowed:[]
+};
+util.iseEndpointMacInfo(["00:26:CB:3C:18:BC","3C:18:A0:78:5E:D0"],"iseServer","authToken",opts).then(console.log).catch(console.log);
+```
+
+### iseEndpointIdInfo
+```js
+opts = {
+    allowed:[]
+};
+util.iseEndpointIdInfo(["<DEVICE_ID1>","<DEVICE_ID2>"],"iseServer","authToken",opts).then(console.log).catch(console.log);
+```
+
+### iseEndpointUpdate
+```js
+opts = {
+    allowed:[]
+};
+util.iseEndpointUpdate(["<DEVICE_ID1>","<DEVICE_ID2>"],"<GROUP_ID>",<"DESCRIPTION">,"iseServer","authToken",opts).then(console.log).catch(console.log);
+```
