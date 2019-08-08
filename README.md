@@ -9,7 +9,7 @@ My NODE .js toolkit
 
 ### API VERSION 1
 ```js
-const util = require("./nodeUtilz/app.js");
+const utilz = require("./nodeUtilz/app.js");
 ```
 
 ### testSSH:
