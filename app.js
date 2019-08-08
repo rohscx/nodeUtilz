@@ -18,6 +18,7 @@ const nodePing = require('./cusFun/nodePing.js');
 const sshCredentialTest = require('./cusFun/sshCredentialTest.js');
 const groupItems = require('./cusFun/groupItems.js');
 const mergeObjects = require('./cusFun/mergeObjects.js');
+const xmlToJson = require('./cusFun/xmlToJson.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const iseDeviceGroups = require('./ise/iseDeviceGroups.js');
@@ -70,4 +71,5 @@ module.exports = {
   iseEndpointMacInfo:iseEndpointMacInfo,
   iseEndpointUpdate:iseEndpointUpdate,
   iseEndpointIdInfo:iseEndpointIdInfo,
+  xmlToJson:xmlToJson,
 };
