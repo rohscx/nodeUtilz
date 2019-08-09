@@ -84,5 +84,5 @@ utilz.ciscoOption43(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
 
 ### ciscoDecodeOption43
 ```js
-utilz.ciscociscoDecodeOption43(f108c0a80a05c0a80a14);
+utilz.ciscociscoDecodeOption43("f108c0a80a05c0a80a14");
 ```
