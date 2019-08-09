@@ -7,6 +7,7 @@ const parseMacFromString = require('./cusFun/parseMacFromString.js');
 const parseIpFromString = require('./cusFun/parseIpFromString.js');
 const reverseIpLookup = require('./cusFun/reverseIpLookup.js');
 const ciscoOption43 = require('./cusFun/ciscoOption43.js');
+const ciscoDecodeOption43 = require('./cusFun/ciscoDecodeOption43.js');
 const standardDeviation = require('./cusFun/standardDeviation.js');
 const primeDeviceProperties = require('./prime/primeDeviceProperties.js');
 const dateFromFileTime = require('./cusFun/dateFromFileTime.js');
@@ -72,4 +73,5 @@ module.exports = {
   iseEndpointUpdate:iseEndpointUpdate,
   iseEndpointIdInfo:iseEndpointIdInfo,
   xmlToJson:xmlToJson,
+  ciscoDecodeOption43: ciscoDecodeOption43,
 };

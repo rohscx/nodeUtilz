@@ -31,7 +31,8 @@ module.exports = function(data) {
 
   const subOptionType = 'f1';
   const subOptionLength = (ipArray.length * 4);
-  const subOptionLengthFix = [subOptionLength.toString(16)].map((d) => d.length > 1 ? d : '0'+d);
+  // int needs to be padded if it does not have a length of 2
+  const subOptionLengthFix = subOptionLength.toString().length != 2 ? "0"+subOptionLength : subOptionLength;
   const base16IpV4 = ipArray.map((d) => {
     const split = d.split('.');
     const splitToInt = split.map((d) => +d);
