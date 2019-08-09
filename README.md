@@ -14,17 +14,17 @@ const utilz = require(".././nodeUtilz/app.js");
 
 ### testSSH:
 ```js
-util.testSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
+utilz.testSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
 ```
 
 ### nodePing
 ```js
-util.nodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
+utilz.nodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```
 
 ### macFromString
 ```js
-util.macFromString('cc70.ed27.6781',{format:[":", 2]});
+utilz.macFromString('cc70.ed27.6781',{format:[":", 2]});
 ```
 
 ### primeDeviceProperties
@@ -32,12 +32,12 @@ util.macFromString('cc70.ed27.6781',{format:[":", 2]});
 opts = {
     allowed:[]
 };
-util.primeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
+utilz.primeDeviceProperties(["11.10.10.10","10.11.11.11"],"primeServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### mergeObjecs
 ```js
-const newObject = util.mergeObjecs([{a:1},{b:2},{c:3}]);
+const newObject = utilz.mergeObjecs([{a:1},{b:2},{c:3}]);
 ```
 
 ### iseDeviceGroups
@@ -45,7 +45,7 @@ const newObject = util.mergeObjecs([{a:1},{b:2},{c:3}]);
 opts = {
     allowed:[]
 };
-util.iseDeviceGroups(["homeSwitc","spaceRou"],"iseServer","authToken",opts).then(console.log).catch(console.log);
+utilz.iseDeviceGroups(["homeSwitc","spaceRou"],"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### iseEndpointMacInfo
@@ -53,7 +53,7 @@ util.iseDeviceGroups(["homeSwitc","spaceRou"],"iseServer","authToken",opts).then
 opts = {
     allowed:[]
 };
-util.iseEndpointMacInfo(["00:26:CB:3C:18:BC","3C:18:A0:78:5E:D0"],"iseServer","authToken",opts).then(console.log).catch(console.log);
+utilz.iseEndpointMacInfo(["00:26:CB:3C:18:BC","3C:18:A0:78:5E:D0"],"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### iseEndpointIdInfo
@@ -61,7 +61,7 @@ util.iseEndpointMacInfo(["00:26:CB:3C:18:BC","3C:18:A0:78:5E:D0"],"iseServer","a
 opts = {
     allowed:[]
 };
-util.iseEndpointIdInfo(["<DEVICE_ID1>","<DEVICE_ID2>"],"iseServer","authToken",opts).then(console.log).catch(console.log);
+utilz.iseEndpointIdInfo(["<DEVICE_ID1>","<DEVICE_ID2>"],"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### iseEndpointUpdate
@@ -69,10 +69,20 @@ util.iseEndpointIdInfo(["<DEVICE_ID1>","<DEVICE_ID2>"],"iseServer","authToken",o
 opts = {
     allowed:[]
 };
-util.iseEndpointUpdate(["<DEVICE_ID1>","<DEVICE_ID2>"],"<GROUP_ID>",<"DESCRIPTION">,"iseServer","authToken",opts).then(console.log).catch(console.log);
+utilz.iseEndpointUpdate(["<DEVICE_ID1>","<DEVICE_ID2>"],"<GROUP_ID>",<"DESCRIPTION">,"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### filterBadIpV4
 ```js
-util.filterBadIpV4(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
+utilz.filterBadIpV4(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
+```
+
+### ciscoOption43
+```js
+utilz.ciscoOption43(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
+```
+
+### ciscoDecodeOption43
+```js
+utilz.ciscociscoDecodeOption43(f108c0a80a05c0a80a14);
 ```
