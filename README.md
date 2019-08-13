@@ -86,3 +86,17 @@ utilz.ciscoOption43(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
 ```js
 utilz.ciscociscoDecodeOption43("f108c0a80a05c0a80a14");
 ```
+
+### velocloudGetEdgeConfigurationStack
+```js
+options = {
+  "callBack": function(data) {console.log("doSomethingWith", data)},
+  "url": "https://<cloudOrchestratorUrl>/portal/rest/edge/getEdgeConfigurationStack",
+  "enterpriseId": 567,
+  "edgeId": 1234,
+  "modules":["modules"],
+  "authCookie":"velocloud.session=17afa8fa3e6f30a976d2e12..."
+}
+
+utilz.velocloudGetEdgeConfigurationStack(options).then((t) => t.callBack(Object.keys(t.response))).catch(console.log);
+```
