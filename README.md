@@ -86,3 +86,30 @@ utilz.ciscoOption43(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
 ```js
 utilz.ciscociscoDecodeOption43("f108c0a80a05c0a80a14");
 ```
+
+### velocloudGetEdgeConfigurationStack
+```js
+options = {
+  "callBack": function(data) {console.log("doSomethingWith", data)},
+  "url": "https://<cloudOrchestratorUrl>/portal/rest/edge/getEdgeConfigurationStack",
+  "enterpriseId": 567,
+  "edgeId": 1234,
+  "modules":["modules"],
+  "authCookie":"velocloud.session=17afa8fa3e6f30a976d2e12..."
+};
+
+utilz.velocloudGetEdgeConfigurationStack(options).then((t) => t.callBack(Object.keys(t.response))).catch(console.log);
+```
+
+### velocloudGetEdgeMgmtIp
+```js
+options = {
+  "readPath": "./response.json",
+  "writePath": "./loopbacks.json",
+  "veloUrl": "https://<cloudOrchestratorUrl>/portal/rest/edge/getEdgeConfigurationStack",
+  "veloAuthCookie": "velocloud.session=17afa8fa3e6f30a976d2e12..."
+};
+
+utilz.readFile(options.readPath,"utf8").then((t) => data = JSON.parse(t));
+utilz.velocloudGetEdgeMgmtIp(data,options.veloUrl,options.veloAuthCookie).then((t) => utilz.writeFile("./loopbacks.json",JSON.stringify(t,null,"\t"),"utf8").catch(console.log));
+```
