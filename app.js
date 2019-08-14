@@ -27,6 +27,7 @@ const iseEndpointMacInfo = require('./ise/iseEndpointMacInfo.js');
 const iseEndpointUpdate = require('./ise/iseEndpointUpdate.js');
 const iseEndpointIdInfo = require('./ise/iseEndpointIdInfo.js');
 const velocloudGetEdgeConfigurationStack = require('./velocloud/velocloudGetEdgeConfigurationStack.js');
+const velocloudGetEdgeMgmtIp = require('./velocloud/velocloudGetEdgeMgmtIp.js');
 const asyncRequest = require('./request/asyncRequest.js');
 const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
@@ -76,4 +77,5 @@ module.exports = {
   xmlToJson:xmlToJson,
   ciscoDecodeOption43: ciscoDecodeOption43,
   velocloudGetEdgeConfigurationStack:velocloudGetEdgeConfigurationStack,
+  velocloudGetEdgeMgmtIp:velocloudGetEdgeMgmtIp,
 };
