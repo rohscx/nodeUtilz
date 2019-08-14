@@ -107,7 +107,7 @@ options = {
   "readPath": "./response.json",
   "writePath": "./loopbacks.json",
   "veloUrl": "https://<cloudOrchestratorUrl>/portal/rest/edge/getEdgeConfigurationStack",
-  "veloAuthCookie":"velocloud.session=17afa8fa3e6f30a976d2e12..."
+  "veloAuthCookie": "velocloud.session=17afa8fa3e6f30a976d2e12..."
 };
 
 utilz.readFile(options.readPath,"utf8").then((t) => data = JSON.parse(t));
