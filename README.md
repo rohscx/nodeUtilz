@@ -101,7 +101,7 @@ options = {
 utilz.velocloudGetEdgeConfigurationStack(options).then((t) => t.callBack(Object.keys(t.response))).catch(console.log);
 ```
 
-### velocloudGetEdgeLoopbacks
+### velocloudGetEdgeMgmtIp
 ```js
 options = {
   "readPath": "./response.json",
@@ -111,5 +111,5 @@ options = {
 };
 
 utilz.readFile(options.readPath,"utf8").then((t) => data = JSON.parse(t));
-utilz.velocloudGetEdgeLoopbacks(data,options.veloUrl,options.veloAuthCookie).then((t) => utilz.writeFile("./loopbacks.json",JSON.stringify(t,null,"\t"),"utf8").catch(console.log));
+utilz.velocloudGetEdgeMgmtIp(data,options.veloUrl,options.veloAuthCookie).then((t) => utilz.writeFile("./loopbacks.json",JSON.stringify(t,null,"\t"),"utf8").catch(console.log));
 ```
