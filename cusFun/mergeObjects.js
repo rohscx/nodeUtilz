@@ -3,7 +3,7 @@ module.exports = function (data) {
     return data.reduce((n, o ) => {
       const oKeys = Object.keys(o);
       for (const oKey of oKeys) {
-        if (o[oKey].length > 0) n[oKey].push(...o[oKey])
+        if (o[oKey].length > 0) n[oKey].push(o[oKey])
       } 
       return n;
     },obj)

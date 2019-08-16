@@ -20,6 +20,7 @@ const sshCredentialTest = require('./cusFun/sshCredentialTest.js');
 const groupItems = require('./cusFun/groupItems.js');
 const mergeObjects = require('./cusFun/mergeObjects.js');
 const xmlToJson = require('./cusFun/xmlToJson.js');
+const standardizedArrayFromString = require('./cusFun/standardizedArrayFromString.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const iseDeviceGroups = require('./ise/iseDeviceGroups.js');
@@ -76,6 +77,7 @@ module.exports = {
   iseEndpointIdInfo:iseEndpointIdInfo,
   xmlToJson:xmlToJson,
   ciscoDecodeOption43: ciscoDecodeOption43,
-  velocloudGetEdgeConfigurationStack:velocloudGetEdgeConfigurationStack,
-  velocloudGetEdgeMgmtIp:velocloudGetEdgeMgmtIp,
+  velocloudGetEdgeConfigurationStack: velocloudGetEdgeConfigurationStack,
+  velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
+  standardizedArrayFromString: standardizedArrayFromString,
 };

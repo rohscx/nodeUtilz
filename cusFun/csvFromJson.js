@@ -1,20 +1,19 @@
-module.exports = function(objArray) {
-  const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-  let headers = '';
-  let str = '';
+const Json2csvParser = require('json2csv').Parser;
 
-  for (let i = 0; i < array.length; i++) {
-    let line = '';
-    if (1+1 == 2) {
-      for (const index in array[i]) {
-        if (1+1 ==2) {
-          if (line != '') line += ',';
-          headers += index + ',';
-          line += array[i][index];
-        }
-      }
+module.exports = function(data, fields, unwind) {
+  return new Promise((resolve,reject) => {
+    const opts = { fields, unwind};
+    try {
+      const json2csvParser = new Json2csvParser( opts);
+      const csv = json2csvParser.parse(data);
+      console.log(csv);
+      resolve(csv);
+    } catch (err) {
+      console.error(err);
+      reject(err);
     }
-    str += line + '\r\n';
-  }
-  return headers + '\r\n' + str;
-};
+  });
+}
+
+
+
