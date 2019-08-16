@@ -113,3 +113,10 @@ options = {
 utilz.readFile(options.readPath,"utf8").then((t) => data = JSON.parse(t));
 utilz.velocloudGetEdgeMgmtIp(data,options.veloUrl,options.veloAuthCookie).then((t) => utilz.writeFile("./loopbacks.json",JSON.stringify(t,null,"\t"),"utf8").catch(console.log));
 ```
+
+### csvFromJson
+```js
+unwind = ["key1","key2"...];
+
+utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
+```
