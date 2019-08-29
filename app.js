@@ -29,6 +29,7 @@ const iseEndpointUpdate = require('./ise/iseEndpointUpdate.js');
 const iseEndpointIdInfo = require('./ise/iseEndpointIdInfo.js');
 const velocloudGetEdgeConfigurationStack = require('./velocloud/velocloudGetEdgeConfigurationStack.js');
 const velocloudGetEdgeMgmtIp = require('./velocloud/velocloudGetEdgeMgmtIp.js');
+const amznConnectReqirements = require('./amazon/amznConnectReqirements.js');
 const asyncRequest = require('./request/asyncRequest.js');
 const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
@@ -70,14 +71,15 @@ module.exports = {
   primeDeviceProperties: primeDeviceProperties,
   groupItems: groupItems,
   mergeObjects: mergeObjects,
-  filterBadIpV4:filterBadIpV4,
-  iseDeviceGroups:iseDeviceGroups,
-  iseEndpointMacInfo:iseEndpointMacInfo,
-  iseEndpointUpdate:iseEndpointUpdate,
-  iseEndpointIdInfo:iseEndpointIdInfo,
-  xmlToJson:xmlToJson,
+  filterBadIpV4: filterBadIpV4,
+  iseDeviceGroups: iseDeviceGroups,
+  iseEndpointMacInfo: iseEndpointMacInfo,
+  iseEndpointUpdate: iseEndpointUpdate,
+  iseEndpointIdInfo: iseEndpointIdInfo,
+  xmlToJson: xmlToJson,
   ciscoDecodeOption43: ciscoDecodeOption43,
   velocloudGetEdgeConfigurationStack: velocloudGetEdgeConfigurationStack,
   velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
   standardizedArrayFromString: standardizedArrayFromString,
+  amznConnectReqirements: amznConnectReqirements,
 };
