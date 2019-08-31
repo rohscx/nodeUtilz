@@ -30,6 +30,7 @@ const iseEndpointIdInfo = require('./ise/iseEndpointIdInfo.js');
 const velocloudGetEdgeConfigurationStack = require('./velocloud/velocloudGetEdgeConfigurationStack.js');
 const velocloudGetEdgeMgmtIp = require('./velocloud/velocloudGetEdgeMgmtIp.js');
 const amznConnectReqirements = require('./amazon/amznConnectReqirements.js');
+const tesseractOcr = require('./tesseract/ocr.js');
 const asyncRequest = require('./request/asyncRequest.js');
 const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
@@ -82,4 +83,5 @@ module.exports = {
   velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
   standardizedArrayFromString: standardizedArrayFromString,
   amznConnectReqirements: amznConnectReqirements,
+  tesseractOcr: tesseractOcr,
 };
