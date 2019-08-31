@@ -3,8 +3,17 @@
 module.exports = function(data, options = {}) {
   const ips = (string) => {
     return string.split('\n')
-        .map((d) => d.split(' ').filter((f) => f.search(RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/)) != -1))
-        .filter((f )=> f.length > 0).map((d) => d.join(''));
+        .map((d) => d.split(' ').filter((f) => f.search(new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/)) != -1))
+        .filter((f )=> f.length > 0).reduce((n,o) => {
+          const data = o;
+          console.log(typeof(n))
+          if (typeof(o) !== 'object') {
+            n.push(o);
+          } else {
+            n.push(... o);
+          }
+          return n;
+        },[]);
   };
 
   const responses = ips(data);
