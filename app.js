@@ -37,6 +37,7 @@ const readFile = require('./file/readFile.js');
 const writeFile = require('./file/writeFile.js');
 const fileStats = require('./file/fileStats.js');
 const readDirectory = require('./file/readDirectory.js');
+const deleteFile = require('./file/deleteFile.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 const btoa = require('btoa');
 
@@ -52,6 +53,7 @@ module.exports = {
   asyncRequest: asyncRequest,
   requestOptions: requestOptions,
   readFile: readFile,
+  deleteFile: deleteFile,
   prtgOptions: prtgOptions,
   writeFile: writeFile,
   fileStats: fileStats,
