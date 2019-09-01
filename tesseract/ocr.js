@@ -2,7 +2,7 @@ const Tesseract = require('tesseract.js');
 
 
 
-module.exports = async function (data){
+module.exports = async function (data,callBack){
     const { TesseractWorker } = Tesseract;
     const worker = new TesseractWorker();
 
@@ -12,6 +12,7 @@ module.exports = async function (data){
         .progress((p) => {
             // debug
             //console.log('progress', p);
+            callBack ? callBack(p) : console.log('progress', p);
         })
         .then(({ text }) => {
             // debug
