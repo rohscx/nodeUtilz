@@ -85,10 +85,7 @@ module.exports = {
   velocloudGetEdgeConfigurationStack: velocloudGetEdgeConfigurationStack,
   velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
   standardizedArrayFromString: standardizedArrayFromString,
-<<<<<<< HEAD
   jsonFromPdf: jsonFromPdf,
-=======
   amznConnectReqirements: amznConnectReqirements,
   tesseractOcr: tesseractOcr,
->>>>>>> 72bd20e9cd7fe125e880a14438b1f3f8eaaf81d9
 };
