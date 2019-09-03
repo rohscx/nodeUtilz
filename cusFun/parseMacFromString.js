@@ -2,7 +2,7 @@
 
 module.exports = function(data, options = {}) {
   const macs = (string) => {
-    return string.split('\n')
+    return string.split(/[\s,\n]/)
         .map((d) => d.split(' ').filter((f) => f.search(RegExp(/(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2})/)) != -1))
         .filter((f )=> f.length > 0).map((d) => d.join(''));
   };
