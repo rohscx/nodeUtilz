@@ -2,7 +2,7 @@
 
 module.exports = function(data, options = {}) {
   const ips = (string) => {
-    return string.split('\n')
+    return string.split('\n' || '\t' || '\n')
         .map((d) => d.split(' ').filter((f) => f.search(new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/)) != -1))
         .filter((f )=> f.length > 0).reduce((n,o) => {
           const data = o;
