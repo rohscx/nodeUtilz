@@ -30,12 +30,15 @@ const iseEndpointUpdate = require('./ise/iseEndpointUpdate.js');
 const iseEndpointIdInfo = require('./ise/iseEndpointIdInfo.js');
 const velocloudGetEdgeConfigurationStack = require('./velocloud/velocloudGetEdgeConfigurationStack.js');
 const velocloudGetEdgeMgmtIp = require('./velocloud/velocloudGetEdgeMgmtIp.js');
+const amznConnectReqirements = require('./amazon/amznConnectReqirements.js');
+const tesseractOcr = require('./tesseract/ocr.js');
 const asyncRequest = require('./request/asyncRequest.js');
 const requestOptions = require('./request/generateOptions.js');
 const readFile = require('./file/readFile.js');
 const writeFile = require('./file/writeFile.js');
 const fileStats = require('./file/fileStats.js');
 const readDirectory = require('./file/readDirectory.js');
+const deleteFile = require('./file/deleteFile.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 const btoa = require('btoa');
 
@@ -51,6 +54,7 @@ module.exports = {
   asyncRequest: asyncRequest,
   requestOptions: requestOptions,
   readFile: readFile,
+  deleteFile: deleteFile,
   prtgOptions: prtgOptions,
   writeFile: writeFile,
   fileStats: fileStats,
@@ -71,15 +75,20 @@ module.exports = {
   primeDeviceProperties: primeDeviceProperties,
   groupItems: groupItems,
   mergeObjects: mergeObjects,
-  filterBadIpV4:filterBadIpV4,
-  iseDeviceGroups:iseDeviceGroups,
-  iseEndpointMacInfo:iseEndpointMacInfo,
-  iseEndpointUpdate:iseEndpointUpdate,
-  iseEndpointIdInfo:iseEndpointIdInfo,
-  xmlToJson:xmlToJson,
+  filterBadIpV4: filterBadIpV4,
+  iseDeviceGroups: iseDeviceGroups,
+  iseEndpointMacInfo: iseEndpointMacInfo,
+  iseEndpointUpdate: iseEndpointUpdate,
+  iseEndpointIdInfo: iseEndpointIdInfo,
+  xmlToJson: xmlToJson,
   ciscoDecodeOption43: ciscoDecodeOption43,
   velocloudGetEdgeConfigurationStack: velocloudGetEdgeConfigurationStack,
   velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
   standardizedArrayFromString: standardizedArrayFromString,
+<<<<<<< HEAD
   jsonFromPdf: jsonFromPdf,
+=======
+  amznConnectReqirements: amznConnectReqirements,
+  tesseractOcr: tesseractOcr,
+>>>>>>> 72bd20e9cd7fe125e880a14438b1f3f8eaaf81d9
 };

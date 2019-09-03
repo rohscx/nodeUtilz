@@ -9,10 +9,10 @@ module.exports = function deriveNetwork (data) {
       const [oA1,oB1,oC1,oD1] = o.ip;
       const [oA2,oB2,oC2,oD2] = o.mask;
       const hosts = o.hosts;
-      let tempRelated = {[o]:[]};
-      let tempUnRelated = {[o]:[]};
+      // let tempRelated = {[o]:[]};
+      // let tempUnRelated = {[o]:[]};
       const network = [oct(oA1,oA2),oct(oB1,oB2),oct(oC1,oC2),oct(oD1,oD2)]
-
+      
       const networkBase2 = network.map(d=>base10Convert2(d));
       n.push({ip:o.ip,mask:o.mask,network:pad(networkBase2),hosts})
       return n;
