@@ -23,8 +23,14 @@ module.exports = function(data, options = {}) {
   };
   responses = macs(data);
 
-  if (options.format) console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
-  if (options.pretty) console.log(addDeliminator(stripDeliminator(responses)));
+  if (options.format) {
+    console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
+    return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1])
+  }
+  if (options.pretty) {
+    //console.log(addDeliminator(stripDeliminator(responses)));
+    return addDeliminator(stripDeliminator(responses));
+  }
   if (Object.keys(options).length === 0) console.log('OPTIONS NOT FOUND: accepts options as {pretty:true} or {format:[":", 4]}');
   return responses;
 };
