@@ -3,7 +3,7 @@
 module.exports = function(data, options = {}) {
   const ips = (string) => {
     return string.split(/[\n\t\r]/)
-        .map((d) => d.split(' ').filter((f) => f.search(new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/)) != -1))
+        .map((d) => d.split(' ').filter((f) => f.search(new RegExp(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/)) != -1))
         .filter((f )=> f.length > 0).reduce((n,o) => {
           const data = o;
           console.log(typeof(n))
