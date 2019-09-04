@@ -22,7 +22,8 @@ module.exports = function(data, options = {}) {
   };
   if (Object.keys(options).length === 0) console.log('OPTIONS NOT FOUND: accepts options as {onlyIp:true}');
   // pop() or it returns a nested array
-  if (options.format = true) {
+  console.log(options)
+  if (options.onlyIp = true) {
     return responses.map((d) => onlyIp(d)).map((d) => d.pop());
   } else {
     return responses;
