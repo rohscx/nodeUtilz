@@ -17,9 +17,14 @@ module.exports = function(data, options = {}) {
   };
 
   const responses = ips(data);
-
-  if (options.format) console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
-  if (options.pretty) console.log(addDeliminator(stripDeliminator(responses)));
-  if (Object.keys(options).length === 0) console.log('OPTIONS NOT FOUND: accepts options as {pretty:true} or {format:[":", 4]}');
-  return responses;
+  const onlyIp = (data) =>{
+    return data.match(new RegExp(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/,'g'))
+  };
+  if (Object.keys(options).length === 0) console.log('OPTIONS NOT FOUND: accepts options as {onlyIp:true}');
+  // pop() or it returns a nested array
+  if (options.format = true) {
+    return responses.map((d) => onlyIp(d)).map((d) => d.pop());
+  } else {
+    return responses;
+  }
 };
