@@ -1,5 +1,5 @@
 const PDFParser = require("pdf2json");
-
+// borked and not used. Keeping the code until fixed
 module.exports = function(dataPath) {
     const pdfParser = new PDFParser();
  

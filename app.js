@@ -21,7 +21,6 @@ const groupItems = require('./cusFun/groupItems.js');
 const mergeObjects = require('./cusFun/mergeObjects.js');
 const xmlToJson = require('./cusFun/xmlToJson.js');
 const standardizedArrayFromString = require('./cusFun/standardizedArrayFromString.js');
-const jsonFromPdf = require('./cusFun/jsonFromPdf.js');
 const getRouterObjs = require('./prime/getRouterObjs.js');
 const getPrimeData = require('./prime/getPrimeData.js');
 const iseDeviceGroups = require('./ise/iseDeviceGroups.js');
@@ -85,7 +84,6 @@ module.exports = {
   velocloudGetEdgeConfigurationStack: velocloudGetEdgeConfigurationStack,
   velocloudGetEdgeMgmtIp: velocloudGetEdgeMgmtIp,
   standardizedArrayFromString: standardizedArrayFromString,
-  jsonFromPdf: jsonFromPdf,
   amznConnectReqirements: amznConnectReqirements,
   tesseractOcr: tesseractOcr,
 };
