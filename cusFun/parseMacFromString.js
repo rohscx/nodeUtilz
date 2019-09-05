@@ -25,7 +25,17 @@ module.exports = function(data, options = {}) {
 
   if (options.format) {
     //console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
-    return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1])
+    if (options.case) {
+      if (options.case == "upper") {
+        return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toUpperCase())
+      } else if (options.case == "lower") {
+        return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toLowerCase())
+      }
+      
+    } else {
+      return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1])
+    }
+    
   }
   if (options.pretty) {
     //console.log(addDeliminator(stripDeliminator(responses)));
