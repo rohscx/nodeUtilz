@@ -21,7 +21,8 @@ module.exports = function(data, options = {}) {
       return array.map((d) => d.match(regExp).join(deliminator));
     }
   };
-  responses = macs(data);
+  responses = macs(data)
+    .map((d) => d.match(new RegExp(/([0-9a-fA-F][0-9a-fA-F][:.-]){5}([0-9a-fA-F][0-9a-fA-F]){1}|([0-9A-Fa-f]{4}[.:-]){2}([0-9A-Fa-f]){4}/))[0]);
 
   if (options.format) {
     //console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
