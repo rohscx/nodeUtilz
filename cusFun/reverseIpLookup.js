@@ -21,8 +21,7 @@ module.exports = function(ipArray) {
     });
     const outPut = ipArray.map((d, i) => {
       dns.reverse(d, function(err, domains) {
-        if (err!=null) myEmitter.emit('responseError', err);
-
+        if (err!=null || domains == undefined) return myEmitter.emit('responseError', err? err : domains);
         domains.forEach(function(domain) {
           dns.lookup(domain, function(err, address, family) {
             const lookupResponse = {[address]: domain};
