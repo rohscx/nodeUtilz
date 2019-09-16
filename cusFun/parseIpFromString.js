@@ -17,6 +17,11 @@ module.exports = function(data, options = {}) {
   };
 
   const responses = ips(data);
+  const arrayDedupe = (data) => {
+    const newData = new Set(data);
+    const newArray = Array.from(newData);
+    return newArray;
+  };
   const onlyIp = (data) =>{
     return data.match(new RegExp(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/,'g'))
   };
@@ -24,8 +29,8 @@ module.exports = function(data, options = {}) {
   // pop() or it returns a nested array
   console.log(options)
   if (options.onlyIp = true) {
-    return responses.map((d) => onlyIp(d)).map((d) => d.pop());
+    return arrayDedupe(responses.map((d) => onlyIp(d)).map((d) => d.pop()));
   } else {
-    return responses;
+    return arrayDedupe(responses);
   }
 };

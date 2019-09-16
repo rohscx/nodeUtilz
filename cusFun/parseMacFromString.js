@@ -21,6 +21,16 @@ module.exports = function(data, options = {}) {
       return array.map((d) => d.match(regExp).join(deliminator));
     }
   };
+  
+  const arrayDedupe = (data) => {
+    const newData = new Set(data);
+    const newArray = Array.from(newData);
+    return newArray;
+  };
+  /* 
+    responses is britle, drop the [0] and it returns too much, send an invalid man and it will fail
+    [0] << drop that and write a check to return valid results...  
+  */ 
   responses = macs(data)
     .map((d) => d.match(new RegExp(/([0-9a-fA-F][0-9a-fA-F][:.-]){5}([0-9a-fA-F][0-9a-fA-F]){1}|([0-9A-Fa-f]{4}[.:-]){2}([0-9A-Fa-f]){4}/))[0]);
 
@@ -28,13 +38,13 @@ module.exports = function(data, options = {}) {
     //console.log(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]));
     if (options.case) {
       if (options.case == "upper") {
-        return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toUpperCase())
+        return arrayDedupe(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toUpperCase()))
       } else if (options.case == "lower") {
-        return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toLowerCase())
+        return arrayDedupeaddDe(liminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toLowerCase()))
       }
       
     } else {
-      return addDeliminator(stripDeliminator(responses), options.format[0], options.format[1])
+      return arrayDedupe(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]))
     }
     
   }
@@ -43,5 +53,5 @@ module.exports = function(data, options = {}) {
     return addDeliminator(stripDeliminator(responses));
   }
   if (Object.keys(options).length === 0) console.log('OPTIONS NOT FOUND: accepts options as {pretty:true} or {format:[":", 4]}');
-  return responses;
+  return arrayDedupe(responses);
 };
