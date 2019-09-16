@@ -39,6 +39,7 @@ const fileStats = require('./file/fileStats.js');
 const readDirectory = require('./file/readDirectory.js');
 const deleteFile = require('./file/deleteFile.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
+const checkOscp = require('./oscp/checkOscp');
 const btoa = require('btoa');
 
 
@@ -86,4 +87,5 @@ module.exports = {
   standardizedArrayFromString: standardizedArrayFromString,
   amznConnectReqirements: amznConnectReqirements,
   tesseractOcr: tesseractOcr,
+  checkOscp: checkOscp,
 };
