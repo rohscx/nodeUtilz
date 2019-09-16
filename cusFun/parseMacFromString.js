@@ -40,7 +40,7 @@ module.exports = function(data, options = {}) {
       if (options.case == "upper") {
         return arrayDedupe(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toUpperCase()))
       } else if (options.case == "lower") {
-        return arrayDedupeaddDe(liminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toLowerCase()))
+        return arrayDedupe(addDeliminator(stripDeliminator(responses), options.format[0], options.format[1]).map((d) => d.toLowerCase()))
       }
       
     } else {
