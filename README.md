@@ -19,12 +19,20 @@ utilz.testSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
 
 ### nodePing
 ```js
-utilz.nodePing(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
+utilz.pingV4Nn(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```
 
 ### macFromString
 ```js
-utilz.macFromString('cc70.ed27.6781',{format:[":", 2]});
+options = {
+	"string":"f834.41e7.82a9 \n 10f1.f22a.7728 \n a018.2894.6aa0 0010.4918.33dc",
+	"options":{
+		"format":[":",2],
+		"case":"lower"
+	}
+}
+
+utilz.macFromString('cc70.ed27.6781',options);
 ```
 
 ### primeDeviceProperties
@@ -69,12 +77,15 @@ utilz.iseEndpointIdInfo(["<DEVICE_ID1>","<DEVICE_ID2>"],"iseServer","authToken",
 opts = {
     allowed:[]
 };
+
 utilz.iseEndpointUpdate(["<DEVICE_ID1>","<DEVICE_ID2>"],"<GROUP_ID>",<"DESCRIPTION">,"iseServer","authToken",opts).then(console.log).catch(console.log);
 ```
 
 ### filterBadIpV4
 ```js
-utilz.filterBadIpV4(["1.1.1.1","2.1.1.2","2.3.4.2.1"]);
+options = {"onlyIp":true};
+
+utilz.filterBadIpV4(["1.1.1.1","2.1.1.2","2.3.4.2.1"],options);
 ```
 
 ### ciscoOption43
@@ -119,4 +130,12 @@ utilz.velocloudGetEdgeMgmtIp(data,options.veloUrl,options.veloAuthCookie).then((
 unwind = ["key1","key2"...];
 
 utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
+```
+
+### checkOscp
+```js
+certificateBuffer = utilz.readFile('./bogusCert.crt');
+rootCertificateBuffer = utilz.readFile('./bogusCertCA.crt');
+
+utilz.checkOscp(certificateBuffer,rootCertificateBuffer).then(console.log).catch(console.log)
 ```
