@@ -17,7 +17,7 @@ const utilz = require(".././nodeUtilz/app.js");
 utilz.testSSH(["10.76.254.254"],'jSnow',"nedStarkIsNotDead").then(console.log);
 ```
 
-### nodePing
+### pingV4Nn
 ```js
 utilz.pingV4Nn(["8.8.8.8", "1.1.1.1", "8.8.4.4"]).then(console.log);
 ```
