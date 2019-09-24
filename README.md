@@ -134,8 +134,10 @@ utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
 
 ### checkOscp
 ```js
-certificateBuffer = utilz.readFile('./bogusCert.crt');
-rootCertificateBuffer = utilz.readFile('./bogusCertCA.crt');
+(async ()=> {
+  const certificateBuffer = await utilz.readFile('./bogusCert.crt'); 
+  const rootCertificateBuffer = await utilz.readFile('./bogusCertCA.crt');
 
-utilz.checkOscp(certificateBuffer,rootCertificateBuffer).then(console.log).catch(console.log)
+  utilz.checkOscp(certificateBuffer,rootCertificateBuffer).then(console.log).catch(console.log)
+}  )();
 ```
