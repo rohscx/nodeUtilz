@@ -141,3 +141,12 @@ utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
   utilz.checkOscp(certificateBuffer,rootCertificateBuffer).then(console.log).catch(console.log)
 }  )();
 ```
+
+### qrCode
+```js
+const data = "I am just a man who...";
+// if options is used resolves to a uri encoded string for browsers. Else attempts to print image to console.
+const options = {output:'uri',qrOptions:{}}; 
+
+utilz.qrCode("man").then(console.log)
+```
