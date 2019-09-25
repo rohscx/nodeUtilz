@@ -40,6 +40,7 @@ const readDirectory = require('./file/readDirectory.js');
 const deleteFile = require('./file/deleteFile.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 const checkOscp = require('./oscp/checkOscp');
+const qrCode = require('./qrcode/qrCode');
 const btoa = require('btoa');
 
 
@@ -88,4 +89,5 @@ module.exports = {
   amznConnectReqirements: amznConnectReqirements,
   tesseractOcr: tesseractOcr,
   checkOscp: checkOscp,
+  qrCode: qrCode,
 };
