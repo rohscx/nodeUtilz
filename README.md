@@ -141,3 +141,10 @@ utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
   utilz.checkOscp(certificateBuffer,rootCertificateBuffer).then(console.log).catch(console.log)
 }  )();
 ```
+
+### qrCode
+```js
+const data = "I am just a man who...";
+cosnt options = {output:'url',qrOptions:{}};
+utilz.qrCode("man" ).then(console.log)
+```
