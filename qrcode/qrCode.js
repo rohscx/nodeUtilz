@@ -38,7 +38,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                     QRCode.toCanvas(canvas, data, qrOptions)
                     .then(url => {
                         // debug
-                        console.log(url)
+                        //console.log(url)
                         resolve(htmlGenerator(url))
                     })
                     .catch(err => {
