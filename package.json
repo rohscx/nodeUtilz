@@ -18,6 +18,7 @@
   "homepage": "https://github.com/rohscx/nodeUtilz#readme",
   "dependencies": {
     "btoa": "^1.2.1",
+    "canvas": "^2.6.0",
     "json2csv": "^4.5.2",
     "node-ssh": "^6.0.0",
     "ocsp": "^1.2.0",
