@@ -1,6 +1,6 @@
 {
   "name": "nodeutilz",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "my homebrew appliation",
   "main": "app.js",
   "scripts": {
