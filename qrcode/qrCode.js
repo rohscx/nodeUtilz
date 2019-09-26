@@ -6,7 +6,6 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
         const {output, qrOptions} = options;
         const canvas = createCanvas(200, 200);
         const htmlGenerator = (htmlElement) => {
-            htmlElement
             return `
                 <!DOCTYPE html>
                 <html>
