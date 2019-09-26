@@ -4,7 +4,7 @@ const { createCanvas } = require('canvas');
 module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
     return new Promise((resolve, reject) => {
         const {output, qrOptions} = options;
-        const canvas = createCanvas(200, 200);
+        const canvas = createCanvas(600, 600);
         const htmlGenerator = (htmlElement) => {
             return `
                 <!DOCTYPE html>
