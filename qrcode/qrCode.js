@@ -14,7 +14,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                         <title>qrCode</title>
                     </head>
                 <body>
-                    ${htmlElement}
+                <img src=${htmlElement.toDataURL()} />
                 </body>
                 </html>
             `;
