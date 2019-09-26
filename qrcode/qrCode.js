@@ -1,10 +1,8 @@
 const QRCode = require('qrcode');
-const { createCanvas } = require('canvas');
 
 module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
     return new Promise((resolve, reject) => {
         const {output, qrOptions} = options;
-        const canvas = createCanvas(600, 600);
         const htmlGenerator = (htmlElement) => {
             return `
                 <!DOCTYPE html>
@@ -14,7 +12,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                         <title>qrCode</title>
                     </head>
                 <body>
-                <img src=${htmlElement.toDataURL()} />
+                <img src=${htmlElement}/>
                 </body>
                 </html>
             `;
@@ -34,7 +32,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                 })
                 break;
             case "canvas":
-                    QRCode.toCanvas(canvas, data, qrOptions)
+                    QRCode.toDataURL(data, qrOptions)
                     .then(url => {
                         // debug
                         //console.log(url)
@@ -51,7 +49,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                 .then(url => {
                     // debug
                     //console.log(url)
-                    resolve(url)
+                    resolve({uri:url})
                 })
                 .catch(err => {
                     console.error(err)
