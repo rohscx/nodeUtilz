@@ -12,7 +12,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                         <title>qrCode</title>
                     </head>
                 <body>
-                <img src=${htmlElement}/>
+                <img src=${htmlElement} />
                 </body>
                 </html>
             `;
