@@ -146,7 +146,8 @@ utilz.csvFromJson(object,objectKeys,unwind).then(console.log).catch(console.log)
 ```js
 const data = "I am just a man who...";
 // if options is used resolves to a uri encoded string for browsers. Else attempts to print image to console.
+// output options [uri, htmlCanvas]
 const options = {output:'uri',qrOptions:{}}; 
 
-utilz.qrCode("man").then(console.log)
+utilz.qrCode(data).then(console.log)
 ```
