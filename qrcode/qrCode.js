@@ -31,7 +31,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                     reject(err)
                 })
                 break;
-            case "canvas":
+            case "html":
                     QRCode.toDataURL(data, qrOptions)
                     .then(url => {
                         // debug
@@ -49,7 +49,7 @@ module.exports = function (data, options = {output:'terminal',qrOptions:{}}) {
                 .then(url => {
                     // debug
                     //console.log(url)
-                    resolve({uri:url})
+                    resolve({url})
                 })
                 .catch(err => {
                     console.error(err)
