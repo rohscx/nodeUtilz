@@ -1,6 +1,6 @@
 // returns only the desired object properties
 
-module.exports = function test (data, allowedKeys){
+module.exports = function (data, allowedKeys){
     return new Promise((resolve, reject) => {
         if (!data | !allowedKeys | typeof(allowedKeys) !== "object") reject({rejected: ["nodeUtil","bad data in Parameter"]})
         const filterFunction = (d, a) => {
