@@ -42,6 +42,7 @@ const prtgOptions = require('./prtg/prtgRequestOptions.js');
 const checkOscp = require('./oscp/checkOscp');
 const qrCode = require('./qrcode/qrCode');
 const btoa = require('btoa');
+const objectKeyFilter = require('./cusFun/objectKeyFilter.js');
 
 
 module.exports = {
@@ -90,4 +91,5 @@ module.exports = {
   tesseractOcr: tesseractOcr,
   checkOscp: checkOscp,
   qrCode: qrCode,
+  objectKeyFilter :objectKeyFilter,
 };
