@@ -151,3 +151,12 @@ const options = {output:'uri',qrOptions:{}};
 
 utilz.qrCode(data).then(console.log)
 ```
+
+### writeFile
+```js
+const filePath = './myFile.txt'
+const fileData = 'OSPF Anatomy of an INternet Routing Protocol....'
+const encoding = 'utf8'
+
+utilz.writeFile(filePath,fileData,encoding).then(console.log).catch(console.log)
+```
