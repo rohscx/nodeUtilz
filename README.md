@@ -3,13 +3,13 @@ My NODE .js toolkit
 
 ## Installation
 
-    npm install
+    npm install nodeutilz
 
 ## Method Utilization Examples
 
 ### API VERSION 1
 ```js
-const utilz = require(".././nodeUtilz/app.js");
+const nU = require("nodeUtilz");
 ```
 
 ### testSSH:
