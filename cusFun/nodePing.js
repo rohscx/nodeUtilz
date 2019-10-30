@@ -19,7 +19,7 @@ const EventEmitter = require('events');
   * @param {string} stddev - Standard deviation time for collected records
   */
 
-module.exports = function(dataArray) {
+module.exports = function(dataArray,debug = false) {
   const myEmitter = new EventEmitter();
   const hosts = dataArray.filter((f) => f.length > 0);
 
@@ -33,7 +33,7 @@ module.exports = function(dataArray) {
       } else {
         pingResult.dead.push(numeric_host)
       };;
-      console.log(msg);
+      if (debug === true) console.log(msg);
     });
     myEmitter.on('finished', (data) => {
       resolve(pingResult);
