@@ -15,6 +15,8 @@ const primeData = require('./prime/getPrimeData.js');
 const dateFromFileTime = require('./cusFun/dateFromFileTime.js');
 const filterBadIpV4 = require('./cusFun/filterBadIpV4.js');
 const sha1Hash = require('./cusFun/sha1Hash.js');
+const hashTable = require('./cusFun/hashTable.js');
+const hashFunction = require('./cusFun/getHash.js');
 const hostCertProperties = require('./cusFun/hostCertProperties.js');
 const readFileDataNn = require('./cusFun/readFileDataNn.js');
 const nodePing = require('./cusFun/nodePing.js');
@@ -71,6 +73,8 @@ module.exports = {
   stdev: standardDeviation,
   dateFromFileTime: dateFromFileTime,
   sha1Hash: sha1Hash,
+  hashTable: hashTable,
+  hashFunction: hashFunction,
   hostCertProperties: hostCertProperties,
   readFiles: readFileDataNn,
   pingV4Nn: nodePing,
