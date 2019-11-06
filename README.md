@@ -160,3 +160,16 @@ const encoding = 'utf8'
 
 utilz.writeFile(filePath,fileData,encoding).then(console.log).catch(console.log)
 ```
+
+
+### primeData
+```js
+const serverUrl = "https://cisciPrimeServer2915199441233.replace.this.net";
+const serverUri = "/webacs/api/v1/data/Devices.json?.full=true&.sort=ipAddress&deviceName=contains(marsOne)&deviceType=contains(29xx)";
+const serverAuth = "Basic madeUpBasicAuthPassword";
+
+// URI can be used to filter results
+const requestOptions = utilz.primeRequestOptions(serverUrl,serverUri,serverAuth);
+// Do some work on the data
+utilz.primeData(requestOptions).then(console.log).catch(console.log);
+```
