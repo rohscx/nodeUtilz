@@ -10,6 +10,8 @@ const ciscoOption43 = require('./cusFun/ciscoOption43.js');
 const ciscoDecodeOption43 = require('./cusFun/ciscoDecodeOption43.js');
 const standardDeviation = require('./cusFun/standardDeviation.js');
 const primeDeviceProperties = require('./prime/primeDeviceProperties.js');
+const primeRequestOptions = require('./prime/getPrimeOptionsMaker.js');
+const primeData = require('./prime/getPrimeData.js');
 const dateFromFileTime = require('./cusFun/dateFromFileTime.js');
 const filterBadIpV4 = require('./cusFun/filterBadIpV4.js');
 const sha1Hash = require('./cusFun/sha1Hash.js');
@@ -75,6 +77,8 @@ module.exports = {
   basicAuthString: btoa,
   testSSH: sshCredentialTest,
   primeDeviceProperties: primeDeviceProperties,
+  primeRequestOptions: primeRequestOptions,
+  primeDevices: primeData,
   groupItems: groupItems,
   mergeObjects: mergeObjects,
   filterBadIpV4: filterBadIpV4,
