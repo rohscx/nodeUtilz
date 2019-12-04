@@ -55,7 +55,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     readDirectory(rootDir)
         .then((files) => {
           const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-          let counter = 1;
+          let counter = 0;
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
               const fileCount = fileNames.length;
