@@ -19,7 +19,7 @@ test.getDataObjFile().then(console.log)
 module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json', debug: false}) {
   const {separator , searchFilter , outPutPath , outPutFileName , debug} = opts;
   const rootDir = relativePath+'/';
-  const fileData = [];
+  let fileData = [];
   const fileNameFilter = [outPutFileName];
   const dataLoaded = {ready:false};
 
