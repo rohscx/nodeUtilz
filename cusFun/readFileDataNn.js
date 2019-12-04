@@ -35,7 +35,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.readDirFiles = function() {
     // delete arrayData / clear arraData
-    return new Promose ((resolve,reject) => {
+    return new Promise ((resolve,reject) => {
       this.deleteDataObj();
       myEmitter.on('fileRead', (fileName, data) => {
         if (debug) console.log(`Data Load Event: ${fileName}`);
