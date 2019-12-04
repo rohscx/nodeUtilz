@@ -16,18 +16,18 @@ test.getDataJson()
 saveDataFile()
 test.getDataObjFile().then(console.log)
 */
-module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json'}) {
-  const {separator ='\n', searchFilter = '*', outPutPath = './', outPutFileName = 'jsonBlob.json'} = opts;
+module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json', debug: false}) {
+  const {separator , searchFilter , outPutPath , outPutFileName , debug} = opts;
   const rootDir = relativePath+'/';
   const fileData = [];
   const fileNameFilter = [outPutFileName];
   this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
-      console.log(fileNames);
+      if (debug) console.log(fileNames);
     }).catch(console.log);
   };
-  this.getDataObj = function() {
+  this.getDataObject = function() {
     return (fileData);
   };
   this.getStringifiedDataObject = function() {
@@ -35,36 +35,39 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.readDirFiles = function() {
     // delete arrayData / clear arraData
-    this.deleteDataObj();
-    myEmitter.on('fileRead', (fileName, data) => {
-      console.log(`Data Load Event: ${fileName}`);
-      const splitData = data.split(separator)
-          .filter((f) => f.length > 1)
-          .filter((f) => f.toLowerCase().search(new RegExp(searchFilter.toLowerCase())) != -1)
-          .map((d) => d.split('\n')
-              .map((d) => d.trim())
-              .filter((f) => f.length > 1));
-      if (splitData.length > 0) fileData.push({[fileName]: splitData});
+    return new Promose ((resolve,reject) => {
+      this.deleteDataObj();
+      myEmitter.on('fileRead', (fileName, data) => {
+        if (debug) console.log(`Data Load Event: ${fileName}`);
+        const splitData = data.split(separator)
+            .filter((f) => f.length > 1)
+            .filter((f) => f.toLowerCase().search(new RegExp(searchFilter.toLowerCase())) != -1)
+            .map((d) => d.split('\n')
+                .map((d) => d.trim())
+                .filter((f) => f.length > 1));
+        if (splitData.length > 0) fileData.push({[fileName]: splitData});
+      });
+      readDirectory(rootDir)
+          .then((files) => {
+            const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+            for (const fileName of fileNames) {
+              readFile(relativePath+fileName, 'utf8').then((data) => {
+                myEmitter.emit('fileRead', fileName, data);
+              }).catch(console.log);
+            }
+            resolve({getDataObj:this.getDataObject, getStringifiedDataObject:this.getStringifiedDataObject,saveDataObjectToFile:this.saveDataObjectToFile });
+          })
+          .catch(console.log);
     });
-    readDirectory(rootDir)
-        .then((files) => {
-          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-          for (const fileName of fileNames) {
-            readFile(relativePath+fileName, 'utf8').then((data) => {
-              myEmitter.emit('fileRead', fileName, data);
-            }).catch(console.log);
-          }
-        })
-        .catch(console.log);
   };
   this.postCombinedJson = function() {
     myEmitter.on('fileRead', (fileName, data) => {
-      console.log(`Data Load Event: ${fileName} `);
+      if (debug) console.log(`Data Load Event: ${fileName} `);
       const parsedJson = JSON.parse(data);
       if (typeof(parsedJson) == 'object') {
         fileData.push({[fileName]: parsedJson});
       } else {
-        console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
+        if (debug) console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
         fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
       }
     });
@@ -79,7 +82,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
         })
         .catch(console.log);
   };
-  this.saveDataFile = async function(data = fileData) {
+  this.saveDataObjectToFile = async function(data = fileData) {
     const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');
