@@ -55,10 +55,8 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
                 myEmitter.emit('fileRead', fileName, data);
               }).catch(console.log);
             }
-          })
+          }).then((t) => resolve(fileData))
           .catch(console.log);
-          console.log(fileData)
-          resolve(fileData);
     });
   };
   this.postCombinedJson = function() {
