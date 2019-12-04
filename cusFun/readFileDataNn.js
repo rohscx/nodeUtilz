@@ -48,14 +48,13 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
               .map((d) => d.trim())
               .filter((f) => f.length > 1));
       if (splitData.length > 0) fileData.push({[fileName]: splitData});
-      if (splitData.length > 0) fileData = Array.from(new Set(fileData.map((d) => JSON.stringify(d)))).map((d) => JSON.parse(d))
+      if (counter === fileCount) fileData = Array.from(new Set(fileData.map((d) => JSON.stringify(d)))).map((d) => JSON.parse(d))
       console.log(`Processing date from file ${counter} of ${fileCount}`)
       if (counter === fileCount) dataLoaded.ready = true;
     });
     readDirectory(rootDir)
         .then((files) => {
           const fileNames = Array.from(new Set(files.filter((f) => !fileNameFilter.includes(f))));
-          fileData = [];
           let counter = 0;
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
