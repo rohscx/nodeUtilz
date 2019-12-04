@@ -55,6 +55,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     readDirectory(rootDir)
         .then((files) => {
           const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+          fileData = [];
           let counter = 0;
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
@@ -70,9 +71,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');
-  };
-  this.deleteDataObj = function() {
-    fileData = [];
   };
   this.dataReady = function (){
     return dataLoaded;
