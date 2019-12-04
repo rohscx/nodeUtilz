@@ -39,7 +39,8 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   this.readDirFiles = function() {
     // delete arrayData / clear arraData
     this.deleteDataObj();
-    myEmitter.on('fileRead', (fileName, data) => {
+    myEmitter.on('fileRead', (fileName, data, metaData) => {
+      const {counter, fileCount} = metaData;
       if (debug) console.log(`Data Load Event: ${fileName}`);
       const splitData = data.split(separator)
           .filter((f) => f.length > 1)
@@ -67,7 +68,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.postCombinedJson = function() {
     myEmitter.on('fileRead', (fileName, data, metaData) => {
-      const {counter, fileCount} = metaData;
       if (debug) console.log(`Data Load Event: ${fileName} `);
       const parsedJson = JSON.parse(data);
       if (typeof(parsedJson) == 'object') {
