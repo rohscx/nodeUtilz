@@ -55,7 +55,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
                 myEmitter.emit('fileRead', fileName, data);
               }).catch(console.log);
             }
-            resolve({getDataObj:this.getDataObject, getStringifiedDataObject:this.getStringifiedDataObject,saveDataObjectToFile:this.saveDataObjectToFile });
+            resolve({getDataObj:this.getDataObject(), getStringifiedDataObject:this.getStringifiedDataObject(),saveDataObjectToFile:this.saveDataObjectToFile() });
           })
           .catch(console.log);
     });
