@@ -77,4 +77,8 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   this.dataReady = function (){
     return dataLoaded;
   }
+  this.setOptions = function (data){
+    ops = data;
+    return ops;
+  }
 };
