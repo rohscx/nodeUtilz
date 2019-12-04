@@ -66,28 +66,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
         })
         .catch(console.log);
   };
-  this.postCombinedJson = function() {
-    myEmitter.on('fileRead', (fileName, data, metaData) => {
-      if (debug) console.log(`Data Load Event: ${fileName} `);
-      const parsedJson = JSON.parse(data);
-      if (typeof(parsedJson) == 'object') {
-        fileData.push({[fileName]: parsedJson});
-      } else {
-        if (debug) console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
-        fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
-      }
-    });
-    readDirectory(rootDir)
-        .then((files) => {
-          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-          for (const fileName of fileNames) {
-            readFile(relativePath+fileName, 'utf8').then((data) => {
-              myEmitter.emit('fileRead', fileName, data);
-            }).catch(console.log);
-          }
-        })
-        .catch(console.log);
-  };
   this.saveDataObjectToFile = async function(data = fileData) {
     const relativeFilePath = outPutPath+outPutFileName;
     const stringifiedData = JSON.stringify(fileData);
