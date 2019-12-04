@@ -1,6 +1,6 @@
 {
   "name": "nodeutilz",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "my homebrew appliation",
   "main": "app.js",
   "scripts": {
@@ -18,14 +18,14 @@
   "homepage": "https://github.com/rohscx/nodeUtilz#readme",
   "dependencies": {
     "btoa": "^1.2.1",
-    "json2csv": "^4.5.4",
+    "json2csv": "^4.5.2",
     "node-ssh": "^6.0.0",
     "ocsp": "^1.2.0",
     "ping": "^0.2.2",
-    "qrcode": "^1.4.4",
+    "qrcode": "^1.4.2",
     "request": "^2.88.0",
     "save": "^2.4.0",
-    "tesseract.js": "^2.0.0-beta.2",
+    "tesseract.js": "^2.0.0-alpha.15",
     "xml2js": "^0.4.22"
   },
   "devDependencies": {}
