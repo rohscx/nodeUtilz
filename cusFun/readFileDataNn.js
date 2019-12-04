@@ -48,7 +48,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
               .map((d) => d.trim())
               .filter((f) => f.length > 1));
       if (splitData.length > 0) fileData.push({[fileName]: splitData});
-      if (splitData.length > 0) fileDataArray.from(new Set(fileData.map((d) => JSON.stringify(d)))).map((d) => JSON.parse(d))
+      if (splitData.length > 0) fileData = Array.from(new Set(fileData.map((d) => JSON.stringify(d)))).map((d) => JSON.parse(d))
       console.log(`Processing date from file ${counter} of ${fileCount}`)
       if (counter === fileCount) dataLoaded.ready = true;
     });
