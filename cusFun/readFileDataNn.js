@@ -22,10 +22,12 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   const fileData = [];
   const fileNameFilter = [outPutFileName];
   const dataLoaded = {ready:false};
+
   this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
       if (debug) console.log(fileNames);
+      return fileNames;
     }).catch(console.log);
   };
   this.getDataObject = function() {
@@ -50,8 +52,11 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     readDirectory(rootDir)
         .then((files) => {
           const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+          let counter = 0;
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
+              console.log(counter,fileNames.length)
+              counter ++;
               myEmitter.emit('fileRead', fileName, data);
             }).catch(console.log);
           }
