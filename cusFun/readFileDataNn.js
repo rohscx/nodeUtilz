@@ -55,7 +55,8 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
                 myEmitter.emit('fileRead', fileName, data);
               }).catch(console.log);
             }
-            resolve(this.getDataObject());
+            console.log(fileData)
+            resolve(fileData);
           })
           .catch(console.log);
     });
