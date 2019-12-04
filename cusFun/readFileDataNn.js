@@ -21,6 +21,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   const rootDir = relativePath+'/';
   const fileData = [];
   const fileNameFilter = [outPutFileName];
+  const dataLoaded = {ready:false};
   this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
@@ -35,29 +36,28 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.readDirFiles = function() {
     // delete arrayData / clear arraData
-    return new Promise ((resolve,reject) => {
-      this.deleteDataObj();
-      myEmitter.on('fileRead', (fileName, data) => {
-        if (debug) console.log(`Data Load Event: ${fileName}`);
-        const splitData = data.split(separator)
-            .filter((f) => f.length > 1)
-            .filter((f) => f.toLowerCase().search(new RegExp(searchFilter.toLowerCase())) != -1)
-            .map((d) => d.split('\n')
-                .map((d) => d.trim())
-                .filter((f) => f.length > 1));
-        if (splitData.length > 0) fileData.push({[fileName]: splitData});
-      });
-      readDirectory(rootDir)
-          .then((files) => {
-            const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-            for (const fileName of fileNames) {
-              readFile(relativePath+fileName, 'utf8').then((data) => {
-                myEmitter.emit('fileRead', fileName, data);
-              }).catch(console.log);
-            }
-          }).then((t) => resolve(fileData))
-          .catch(console.log);
+    this.deleteDataObj();
+    myEmitter.on('fileRead', (fileName, data) => {
+      if (debug) console.log(`Data Load Event: ${fileName}`);
+      const splitData = data.split(separator)
+          .filter((f) => f.length > 1)
+          .filter((f) => f.toLowerCase().search(new RegExp(searchFilter.toLowerCase())) != -1)
+          .map((d) => d.split('\n')
+              .map((d) => d.trim())
+              .filter((f) => f.length > 1));
+      if (splitData.length > 0) fileData.push({[fileName]: splitData});
     });
+    readDirectory(rootDir)
+        .then((files) => {
+          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+          for (const fileName of fileNames) {
+            readFile(relativePath+fileName, 'utf8').then((data) => {
+              myEmitter.emit('fileRead', fileName, data);
+            }).catch(console.log);
+          }
+          dataLoaded.ready = true;
+        })
+        .catch(console.log);
   };
   this.postCombinedJson = function() {
     myEmitter.on('fileRead', (fileName, data) => {
@@ -89,4 +89,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   this.deleteDataObj = function() {
     fileData.length = 0;
   };
+  this.dataReady = function (){
+    return dataLoaded;
+  }
 };
