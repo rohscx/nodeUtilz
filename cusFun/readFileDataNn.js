@@ -49,6 +49,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
               .map((d) => d.trim())
               .filter((f) => f.length > 1));
       if (splitData.length > 0) fileData.push({[fileName]: splitData});
+      console.log(`Processing date from file ${counter} of ${fileCount}`)
       if (counter === fileCount) dataLoaded.ready = true;
     });
     readDirectory(rootDir)
@@ -58,7 +59,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
               const fileCount = fileNames.length;
-              console.log(counter,fileCount)
               counter ++;
               myEmitter.emit('fileRead', fileName, data,{counter,fileCount});
             }).catch(console.log);
