@@ -72,7 +72,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     return await writeFile(relativeFilePath, stringifiedData, 'utf8');
   };
   this.deleteDataObj = function() {
-    fileData.length = 0;
+    fileData = [];
   };
   this.dataReady = function (){
     return dataLoaded;
