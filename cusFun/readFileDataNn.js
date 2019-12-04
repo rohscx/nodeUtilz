@@ -25,6 +25,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
 
   this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
+      console.log(opts)
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
       if (debug) console.log(fileNames);
       return fileNames;
@@ -78,7 +79,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     return dataLoaded;
   }
   this.setOptions = function (data){
-    this.opts = data;
+    opts = data;
     return opts;
   }
 };
