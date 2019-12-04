@@ -17,7 +17,7 @@ saveDataFile()
 test.getDataObjFile().then(console.log)
 */
 module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '*', outPutPath: './', outPutFileName: 'jsonBlob.json', debug: false}) {
-  let {separator , searchFilter , outPutPath , outPutFileName , debug} = opts;
+  const {separator , searchFilter , outPutPath , outPutFileName , debug} = opts;
   const rootDir = relativePath+'/';
   let fileData = [];
   const fileNameFilter = [outPutFileName];
@@ -78,7 +78,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     return dataLoaded;
   }
   this.setOptions = function (data){
-    ops = data;
-    return ops;
+    opts = data;
+    return opts;
   }
 };
