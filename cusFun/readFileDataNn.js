@@ -53,7 +53,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     });
     readDirectory(rootDir)
         .then((files) => {
-          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
+          const fileNames = Array.from(new Set(files.filter((f) => !fileNameFilter.includes(f))));
           fileData = [];
           let counter = 0;
           for (const fileName of fileNames) {
