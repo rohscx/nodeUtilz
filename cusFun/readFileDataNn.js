@@ -38,7 +38,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   };
   this.readDirFiles = function() {
     // delete arrayData / clear arraData
-    this.deleteDataObj();
     myEmitter.on('fileRead', (fileName, data, metaData) => {
       const {counter, fileCount} = metaData;
       if (debug) console.log(`Data Load Event: ${fileName}`);
