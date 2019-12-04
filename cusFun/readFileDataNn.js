@@ -48,6 +48,7 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
               .map((d) => d.trim())
               .filter((f) => f.length > 1));
       if (splitData.length > 0) fileData.push({[fileName]: splitData});
+      if (counter === fileCount) dataLoaded.ready = true;
     });
     readDirectory(rootDir)
         .then((files) => {
@@ -71,7 +72,6 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
       const parsedJson = JSON.parse(data);
       if (typeof(parsedJson) == 'object') {
         fileData.push({[fileName]: parsedJson});
-        if (counter === fileCount) console.log (counter === fileCount,counter,fileCount)//dataLoaded.ready = true;
       } else {
         if (debug) console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
         fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
