@@ -22,7 +22,18 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
   const fileData = [];
   const fileNameFilter = [outPutFileName];
   const dataLoaded = {ready:false};
-
+  myEmitter.on('fileRead', (fileName, data, metaData) => {
+    const {counter, fileCount} = metaData;
+    if (debug) console.log(`Data Load Event: ${fileName} `);
+    const parsedJson = JSON.parse(data);
+    if (typeof(parsedJson) == 'object') {
+      fileData.push({[fileName]: parsedJson});
+    } else {
+      if (debug) console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
+      fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
+    }
+    if (counter === fileCount) dataLoaded.ready = true;
+  });
   this.listDirFiles = function() {
     readDirectory(rootDir).then((t) => {
       const fileNames = t.filter((f) => !fileNameFilter.includes(f));
@@ -52,35 +63,13 @@ module.exports = function(relativePath, opts = {separator: '\n', searchFilter: '
     readDirectory(rootDir)
         .then((files) => {
           const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-          let counter = 0;
+          let counter = 1;
           for (const fileName of fileNames) {
             readFile(relativePath+fileName, 'utf8').then((data) => {
-              console.log(counter,fileNames.length)
+              const fileCount = fileNames.length;
+              console.log(counter,fileCount)
               counter ++;
-              myEmitter.emit('fileRead', fileName, data);
-            }).catch(console.log);
-          }
-          dataLoaded.ready = true;
-        })
-        .catch(console.log);
-  };
-  this.postCombinedJson = function() {
-    myEmitter.on('fileRead', (fileName, data) => {
-      if (debug) console.log(`Data Load Event: ${fileName} `);
-      const parsedJson = JSON.parse(data);
-      if (typeof(parsedJson) == 'object') {
-        fileData.push({[fileName]: parsedJson});
-      } else {
-        if (debug) console.log('JSON Test Failed. Rejected:', fileName, typeof(parsedJson));
-        fileData.push({[fileName]: `rejected: ${typeof(parsedJson)}`});
-      }
-    });
-    readDirectory(rootDir)
-        .then((files) => {
-          const fileNames = files.filter((f) => !fileNameFilter.includes(f));
-          for (const fileName of fileNames) {
-            readFile(relativePath+fileName, 'utf8').then((data) => {
-              myEmitter.emit('fileRead', fileName, data);
+              myEmitter.emit('fileRead', fileName, data,{counter,fileCount});
             }).catch(console.log);
           }
         })
