@@ -47,6 +47,7 @@ const checkOscp = require('./oscp/checkOscp');
 const qrCode = require('./qrcode/qrCode');
 const btoa = require('btoa');
 const objectKeyFilter = require('./cusFun/objectKeyFilter.js');
+const isIpV4Address = require('./cusFun/isIpV4Address.js');
 
 
 module.exports = {
@@ -100,4 +101,5 @@ module.exports = {
   checkOscp: checkOscp,
   qrCode: qrCode,
   objectKeyFilter :objectKeyFilter,
+  isIpV4Address: isIpV4Address,
 };
