@@ -1,6 +1,6 @@
 {
   "name": "nodeutilz",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "my homebrew appliation",
   "main": "app.js",
   "scripts": {
@@ -25,8 +25,8 @@
     "qrcode": "^1.4.2",
     "request": "^2.88.0",
     "save": "^2.4.0",
-    "tesseract.js": "^2.0.0-alpha.15",
-    "xml2js": "^0.4.22"
+    "tesseract.js": "^2.0.2",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {}
 }
