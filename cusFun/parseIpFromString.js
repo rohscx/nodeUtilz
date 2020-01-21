@@ -6,7 +6,7 @@ module.exports = function(data, options = {}) {
         .map((d) => d.split(' ').filter((f) => f.search(new RegExp(/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/)) != -1))
         .filter((f )=> f.length > 0).reduce((n,o) => {
           const data = o;
-          console.log(typeof(n))
+          //console.log(typeof(n))
           if (typeof(o) !== 'object') {
             n.push(o);
           } else {
