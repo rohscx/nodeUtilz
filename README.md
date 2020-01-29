@@ -173,3 +173,24 @@ const requestOptions = utilz.primeRequestOptions(serverUrl,serverUri,serverAuth)
 // Do some work on the data
 utilz.primeData(requestOptions).then(console.log).catch(console.log);
 ```
+
+### hashTable
+```js
+const {hashFunction} = require('nodeutilz');
+const hashTableSize = 50; // The size of the hash table impacts how fast data is recalled. Choose wisely
+const someData = [{really:1,badExample:2}];
+const hashable = utilz.newHashTable(hashFunction,hashTableSize); 
+
+// Example
+const {really, badExample} = someData[0]:
+hashable.add(really,badExample);
+const lookup = hashable.lookup(really);
+console.log(lookup) // 2
+
+// Methods 
+hashable.add
+hashable.lookup
+hashable.remove
+hashable.print 
+utilz.writeFile(filePath,fileData,encoding).then(console.log).catch(console.log)
+```
