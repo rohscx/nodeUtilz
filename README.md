@@ -192,5 +192,4 @@ hashable.add
 hashable.lookup
 hashable.remove
 hashable.print 
-utilz.writeFile(filePath,fileData,encoding).then(console.log).catch(console.log)
 ```
