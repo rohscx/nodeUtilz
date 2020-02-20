@@ -50,7 +50,8 @@ const objectKeyFilter = require('./cusFun/objectKeyFilter.js');
 const isIpV4Address = require('./cusFun/isIpV4Address.js');
 const normalizedTime = require('./cusFun/normalizedTime.js');
 const formatFileNameNtfs = require('./cusFun/formatFileNameNtfs.js');
-const filterFieldsCsv = require('./cusFun/filterFieldsCsv.js')
+const filterFieldsCsv = require('./cusFun/filterFieldsCsv.js');
+const isNested = require('./cusFun/isNested.js');
 
 module.exports = {
   version: '1.0',
@@ -106,5 +107,6 @@ module.exports = {
   isIpV4Address: isIpV4Address,
   normalizedTime,
   formatFileNameNtfs,
-  filterFieldsCsv
+  filterFieldsCsv,
+  isNested,
 };
