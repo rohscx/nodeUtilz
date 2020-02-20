@@ -1,4 +1,3 @@
-
 /* s test in browser
 1.1.0.0/16
 
@@ -47,7 +46,6 @@ const base2Padding = require('./lib/networkScope/base2Padding.js');
 const deriveNetwork = require('./lib/networkScope/deriveNetwork.js');
 const base2ToBase10 = require('./lib/networkScope/base2ToBase10.js');
 
-
 module.exports = async function(data) {
   // const split = await splitString(data)
   // const validated = await validateIPv4(split)
@@ -58,17 +56,16 @@ module.exports = async function(data) {
 
   const split = await new Promise((res, rej) => {
     splitString(data)
-        .then((t) =>validateIPv4(t))
-        .then((t) =>octentBase2Convert(t))
-        .then((t) =>base2Padding(t))
-        .then((t) =>deriveNetwork(t))
-        .then((t) =>base2ToBase10(t))
-        .then((t) => res(t))
-        .catch((c) => rej(c));
+      .then(t => validateIPv4(t))
+      .then(t => octentBase2Convert(t))
+      .then(t => base2Padding(t))
+      .then(t => deriveNetwork(t))
+      .then(t => base2ToBase10(t))
+      .then(t => res(t))
+      .catch(c => rej(c));
   });
   return split;
 };
-
 
 //
 //

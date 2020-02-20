@@ -1,19 +1,18 @@
-module.exports = function hashTable (hashFunction,storageLimitInt) {
-  if(hashFunction === undefined | storageLimitInt === undefined) return undefined;
+module.exports = function hashTable(hashFunction, storageLimitInt) {
+  if ((hashFunction === undefined) | (storageLimitInt === undefined))
+    return undefined;
   let storage = [];
   const storageLimit = storageLimitInt;
 
   this.print = function() {
     //console.log(storage) //debug
     return storage;
-  }
+  };
 
   this.add = function(key, value) {
     let index = hashFunction(key, storageLimit);
     if (storage[index] === undefined) {
-      storage[index] = [
-        [key, value]
-      ];
+      storage[index] = [[key, value]];
     } else {
       let inserted = false;
       for (let i = 0; i < storage[index].length; i++) {
@@ -53,5 +52,4 @@ module.exports = function hashTable (hashFunction,storageLimitInt) {
       }
     }
   };
-
-}
+};

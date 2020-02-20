@@ -2,12 +2,12 @@ module.exports = function getRequestOptions(method, url, uri, qs, auth, body) {
   if (body) {
     return {
       method: method,
-      url: url+uri,
+      url: url + uri,
       qs: qs,
       headers: {
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
-        'Authorization': auth,
+        Authorization: auth,
       },
       body: body,
       json: true,
@@ -15,11 +15,11 @@ module.exports = function getRequestOptions(method, url, uri, qs, auth, body) {
   } else {
     return {
       method: method,
-      url: url+uri,
+      url: url + uri,
       qs: qs,
       headers: {
         'Cache-Control': 'no-cache',
-        'Authorization': auth,
+        Authorization: auth,
       },
     };
   }

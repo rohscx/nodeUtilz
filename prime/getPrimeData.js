@@ -1,14 +1,13 @@
 const events = require('events');
 const asyncRequest = require('../request/asyncRequest.js');
 
-
 module.exports = function getPrimeData(requestOptions) {
   return new Promise(function(res, rej) {
     /**
-   * Adds two numbers together.
-   * @param {obj} eventEmitter The first number.
-   * @param {obj} requestOptions The second number.
-   */
+     * Adds two numbers together.
+     * @param {obj} eventEmitter The first number.
+     * @param {obj} requestOptions The second number.
+     */
     function AsyncResponseObj(eventEmitter, requestOptions) {
       this.pagination = {
         items: [],
@@ -20,7 +19,7 @@ module.exports = function getPrimeData(requestOptions) {
       };
       this.requestOptions = requestOptions;
       this.proccessResponse = function(response) {
-        let asjson ='';
+        let asjson = '';
         if (response) {
           try {
             asJson = JSON.parse(response);
@@ -28,41 +27,46 @@ module.exports = function getPrimeData(requestOptions) {
             return rej(response); // error checking the above!
           }
         }
-        asJson.queryResponse.entity.map((d) => this.pagination.items.push(d));
+        asJson.queryResponse.entity.map(d => this.pagination.items.push(d));
         console.log(`Recieved page: ${asJson.queryResponse['@first']}`);
-        if (this.pagination.quotaRemaining + 100 == this.pagination.items.length) {
+        if (
+          this.pagination.quotaRemaining + 100 ==
+          this.pagination.items.length
+        ) {
           console.log('all data received');
           res(this.pagination.items);
         }
       };
       this.more2 = function(response) {
         const asJson = JSON.parse(response);
-        asJson.queryResponse.entity.map((d) => this.pagination.items.push(d));
+        asJson.queryResponse.entity.map(d => this.pagination.items.push(d));
         const first = +asJson.queryResponse['@first'];
         const last = +asJson.queryResponse['@last'];
         const count = +asJson.queryResponse['@count'];
-        if (last < count -1) {
-          console.log(`Mutiple pages required: ${Math.round((count / 100))}`);
+        if (last < count - 1) {
+          console.log(`Mutiple pages required: ${Math.round(count / 100)}`);
           this.pagination.hasMore = true;
           this.pagination.quotaMax = count;
           this.pagination.quotaRemaining = count - (first + 1 + last);
           this.pagination.next = +asJson.queryResponse['@last'] + 1;
-          const arrayMaker = (number) =>{
+          const arrayMaker = number => {
             const emptyArray = [];
-            for (let i = 1; i < number+1; i++ ) {
+            for (let i = 1; i < number + 1; i++) {
               emptyArray.push(100 * i);
             }
             return emptyArray;
           };
-          this.pagNumbers = arrayMaker(Math.round((count / 100)));
+          this.pagNumbers = arrayMaker(Math.round(count / 100));
           const rateLimited = this.pagNumbers.map((d, i) => {
-            setTimeout(()=> {
-              asyncRequest(this.requestOptions(d)).then((t) => eventEmitter.emit('newData', t));
-            }, i*2000);
+            setTimeout(() => {
+              asyncRequest(this.requestOptions(d)).then(t =>
+                eventEmitter.emit('newData', t)
+              );
+            }, i * 2000);
           });
         } else {
           res(this.pagination.items);
-        };
+        }
       };
     }
 
@@ -73,8 +77,7 @@ module.exports = function getPrimeData(requestOptions) {
     eventEmitter.on('newData', function(d) {
       primeData.proccessResponse(d);
     });
-    asyncRequest(primeData.requestOptions(0))
-        .then((t) => primeData.more2(t));
+    asyncRequest(primeData.requestOptions(0)).then(t => primeData.more2(t));
     console.log('gorN!!!');
   });
 

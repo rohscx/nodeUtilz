@@ -1,35 +1,32 @@
-module.exports = function (csvFilePaths, outputFilePath) {
-  const promises = csvFilePaths.map((path) => {
-    return new Promise((resolve) => {
+module.exports = function(csvFilePaths, outputFilePath) {
+  const promises = csvFilePaths.map(path => {
+    return new Promise(resolve => {
       const dataArray = [];
       return csv
-          .fromPath(path, {headers: true})
-          .on('data', function(data) {
-            dataArray.push(data);
-          })
-          .on('end', function() {
-            resolve(dataArray);
-          });
+        .fromPath(path, { headers: true })
+        .on('data', function(data) {
+          dataArray.push(data);
+        })
+        .on('end', function() {
+          resolve(dataArray);
+        });
     });
   });
 
-  return Promise.all(promises)
-      .then((results) => {
+  return Promise.all(promises).then(results => {
+    const csvStream = csv.format({ headers: true });
+    const writableStream = fs.createWriteStream(outputFilePath);
 
-        const csvStream = csv.format({headers: true});
-        const writableStream = fs.createWriteStream(outputFilePath);
+    writableStream.on('finish', function() {
+      console.log('DONE!');
+    });
 
-        writableStream.on('finish', function() {
-          console.log('DONE!');
-        });
-
-        csvStream.pipe(writableStream);
-        results.forEach((result) => {
-          result.forEach((data) => {
-            csvStream.write(data);
-          });
-        });
-        csvStream.end();
-
+    csvStream.pipe(writableStream);
+    results.forEach(result => {
+      result.forEach(data => {
+        csvStream.write(data);
       });
-}
+    });
+    csvStream.end();
+  });
+};

@@ -18,7 +18,6 @@ const fs = require('fs');
 }
 */
 
-
 module.exports = function readFile(relativePath, callBack) {
   return new Promise((res, rej) => {
     fs.stat(relativePath, (err, stats) => {

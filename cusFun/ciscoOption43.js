@@ -1,22 +1,39 @@
 const isIpV4 = require('./isIpV4Address.js');
 
 module.exports = function(data) {
-  if (!data) return `Expected array of IpV4 Strings. Or array of cisco Option 64 values with false option. function(['ipV4Strings']) or function(['opt64String'])`;
-  if (data.map((d) => d.split('').map((d) => d.search(RegExp(/([0-9]|[aA-fF])/))).every((d)=> d === 0)).every((e)=> e === true)) {
-    const split = data.map((d) => d.split(''));
-    return split.map((d) => {
-      return d.reduce((n, o, i) => {
-        if (i > 3) n.push(o);
-        return n;
-      }, [])
-          .join('')
-          .match(/.{8,8}/g)
-          .map((d) => d.match(/.{1,2}/g).map((d) => parseInt(d, 16)).join('.'));
+  if (!data)
+    return `Expected array of IpV4 Strings. Or array of cisco Option 64 values with false option. function(['ipV4Strings']) or function(['opt64String'])`;
+  if (
+    data
+      .map(d =>
+        d
+          .split('')
+          .map(d => d.search(RegExp(/([0-9]|[aA-fF])/)))
+          .every(d => d === 0)
+      )
+      .every(e => e === true)
+  ) {
+    const split = data.map(d => d.split(''));
+    return split.map(d => {
+      return d
+        .reduce((n, o, i) => {
+          if (i > 3) n.push(o);
+          return n;
+        }, [])
+        .join('')
+        .match(/.{8,8}/g)
+        .map(d =>
+          d
+            .match(/.{1,2}/g)
+            .map(d => parseInt(d, 16))
+            .join('.')
+        );
     });
   }
   const ipArray = data;
   // test all elements in the array are ipV4 addresses
-  if (!isIpV4(ipArray)) return `Expected IPV4 Addresses, one or more failed test: ${ipArray}`;
+  if (!isIpV4(ipArray))
+    return `Expected IPV4 Addresses, one or more failed test: ${ipArray}`;
   /*
   Note: TLV values for the Option 43 suboption: Type + Length + Value.
   Type is always the suboption code 0xf1.
@@ -30,13 +47,19 @@ module.exports = function(data) {
   */
 
   const subOptionType = 'f1';
-  const subOptionLength = (ipArray.length * 4);
+  const subOptionLength = ipArray.length * 4;
   // int needs to be padded if it does not have a length of 2
-  const subOptionLengthFix = subOptionLength.toString().length != 2 ? "0"+subOptionLength : subOptionLength;
-  const base16IpV4 = ipArray.map((d) => {
+  const subOptionLengthFix =
+    subOptionLength.toString().length != 2
+      ? '0' + subOptionLength
+      : subOptionLength;
+  const base16IpV4 = ipArray.map(d => {
     const split = d.split('.');
-    const splitToInt = split.map((d) => +d);
-    return splitToInt.map((d) => d.toString(16)).map((d) => d.length > 1 ? d : '0'+d).join('');
+    const splitToInt = split.map(d => +d);
+    return splitToInt
+      .map(d => d.toString(16))
+      .map(d => (d.length > 1 ? d : '0' + d))
+      .join('');
   });
   return subOptionType + subOptionLengthFix + base16IpV4.join('');
 };
