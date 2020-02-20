@@ -49,7 +49,8 @@ const btoa = require('btoa');
 const objectKeyFilter = require('./cusFun/objectKeyFilter.js');
 const isIpV4Address = require('./cusFun/isIpV4Address.js');
 const normalizedTime = require('./cusFun/normalizedTime.js');
-
+const formatFileNameNtfs = require('./cusFun/formatFileNameNtfs.js');
+const filterFieldsCsv = require('./cusFun/filterFieldsCsv.js')
 
 module.exports = {
   version: '1.0',
@@ -101,7 +102,9 @@ module.exports = {
   tesseractOcr: tesseractOcr,
   checkOscp: checkOscp,
   qrCode: qrCode,
-  objectKeyFilter :objectKeyFilter,
+  objectKeyFilter: objectKeyFilter,
   isIpV4Address: isIpV4Address,
   normalizedTime,
+  formatFileNameNtfs,
+  filterFieldsCsv
 };

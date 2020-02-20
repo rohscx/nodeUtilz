@@ -1,8 +1,12 @@
-module.exports = function* makeRangeIterator(start = 0, end = Infinity, step = 1) {
+module.exports = function* makeRangeIterator(
+  start = 0,
+  end = Infinity,
+  step = 1
+) {
   let iterationCount = 0;
   for (let i = start; i <= end; i += step) {
-      iterationCount++;
-      yield i;
+    iterationCount++;
+    yield i;
   }
   return iterationCount;
-}
+};

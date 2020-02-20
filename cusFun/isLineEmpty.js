@@ -1,5 +1,5 @@
 // it fast because it generate a hash table. Kinda like the MAC Oui look up thing you made.
-module.exports = function isLineEmpty(data){
+module.exports = function isLineEmpty(data) {
   const trimmed = data.trim();
   const trimedLength = trimmed.length;
   if (!trimedLength) {
@@ -7,4 +7,4 @@ module.exports = function isLineEmpty(data){
   } else {
     return false;
   }
-}
+};
