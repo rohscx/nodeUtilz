@@ -52,6 +52,7 @@ const normalizedTime = require('./cusFun/normalizedTime.js');
 const formatFileNameNtfs = require('./cusFun/formatFileNameNtfs.js');
 const filterFieldsCsv = require('./cusFun/filterFieldsCsv.js');
 const isNested = require('./cusFun/isNested.js');
+const toCamelCase = require('./cusFun/toCamelCase.js');
 
 module.exports = {
   version: '1.0',
@@ -109,4 +110,5 @@ module.exports = {
   formatFileNameNtfs,
   filterFieldsCsv,
   isNested,
+  toCamelCase,
 };
