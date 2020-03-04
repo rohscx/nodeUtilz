@@ -5,7 +5,14 @@ module.exports = function(optionsObj) {
   const options = optionsObj;
   return new Promise(resolve => {
     request(options, function(error, response, body) {
-      if (error) throw new Error(error);
+      // if there is an error wait 5 seconds and retry the request. Poor mans retry  
+      if (error) return setTimeout(()=> {
+        request(options, function(error, response, body) {
+            if (error) throw new Error(error);
+             //console.log(body);
+            resolve(body);
+          });
+      },5000);
       // console.log(body);
       resolve(body);
     });
