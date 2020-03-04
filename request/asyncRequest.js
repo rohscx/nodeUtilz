@@ -10,9 +10,9 @@ module.exports = function(optionsObj) {
         if (error.code === 'ETIMEDOUT') {
           return setTimeout(() => {
             request(options, function(error, response, body) {
-              if (error)
-                //console.log(body);
-                resolve(body);
+              if (error) throw new Error(error);
+              //console.log(body);
+              resolve(body);
             });
           }, 5000);
         } else {
