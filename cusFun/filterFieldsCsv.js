@@ -1,4 +1,5 @@
-module.exports = function(data, headerFilter) {
+module.exports = function(data, headerFilter, options = {debug:false}) {
+    const {debug} = options;
   return new Promise((resolve, reject) => {
     if (!data || !headerFilter) reject('missing data or header');
     const csvData = data;
@@ -10,7 +11,7 @@ module.exports = function(data, headerFilter) {
 
     getIndex = (data, values) => {
       const [lables] = data;
-      //console.log(values)
+      if (debug) console.log(values)
       return lables.reduce((n, o, i) => {
         if (values.includes(o.replace(new RegExp(/"/g), ''))) n.push(i);
         return n;
@@ -23,7 +24,7 @@ module.exports = function(data, headerFilter) {
       })
     );
     const result = filteredData.map((d, i) => d.join(',')).join('\r');
-    //console.log(new RegExp(result))
+    if (debug) console.log(new RegExp(result))
     resolve(result);
   });
 };
