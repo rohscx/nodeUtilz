@@ -1,7 +1,8 @@
 const Json2csvParser = require('json2csv').Parser;
 
-module.exports = function(data, fields, options = {debug:false, unwind:false}) {
+module.exports = function(data, fields, options = {debug:false, unwind:true}) {
   const {debug, unwind} = options;
+  const opts = { fields, unwind };
   return new Promise((resolve, reject) => {
     //const opts = { fields, unwind };
     try {
