@@ -1,16 +1,20 @@
 module.exports = function base2ToBase10(data) {
   return new Promise(res => {
     const base10 = data.reduce((n, o) => {
-      const { ip, mask, network, hosts } = o;
+      const { ip, mask, network, hosts, lastIp, inverseMask } = o;
       const ipBase10 = ip.map(d => parseInt(d, 2).toString(10)).join('.');
       const maskBase10 = mask.map(d => parseInt(d, 2).toString(10)).join('.');
       const networkBase10 = network
         .map(d => parseInt(d, 2).toString(10))
         .join('.');
+      const lastIpBase10 = lastIp.map(d => parseInt(d, 2).toString(10)).join('.');
+        
       const lastOct = parseInt(network[3], 2).toString(10);
-      const wildMaskBase10 = mask
-        .map(d => 255 - parseInt(d, 2).toString(10))
-        .join('.');
+      // not needed as it is not caculated int the prior promise
+      // const wildMaskBase10 = mask
+      //   .map(d => 255 - parseInt(d, 2).toString(10))
+      //   .join('.');
+      const inverseMaskBase10 = inverseMask.map(d => parseInt(d, 2).toString(10)).join('.');
       const sudoPrefix = mask.reduce((n, o) => {
         const count = parseInt(o, 2);
         if ((count !== 255) & (count !== 0))
@@ -60,8 +64,9 @@ module.exports = function base2ToBase10(data) {
       n.push({
         ip: ipBase10,
         mask: maskBase10,
+        inverseMask: inverseMaskBase10,
         network: networkBase10,
-        wildCard: wildMaskBase10,
+        lastIp: lastIpBase10,
         subnets,
         hosts: hosts - 2,
         subnetIncrement: subnetIncrement === undefined ? 0 : subnetIncrement,
