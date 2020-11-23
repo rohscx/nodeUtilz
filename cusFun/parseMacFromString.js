@@ -11,7 +11,7 @@ module.exports = function(data, options = {}) {
             f =>
               f.search(
                 RegExp(
-                  /(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2})/
+                  /(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2}|([0-9A-Fa-f]{6}[.-]){1})/
                 )
               ) != -1
           )
