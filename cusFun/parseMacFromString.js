@@ -49,7 +49,7 @@ module.exports = function(data, options = {}) {
     d =>
       d.match(
         new RegExp(
-          /([0-9a-fA-F][0-9a-fA-F][:.-]){5}([0-9a-fA-F][0-9a-fA-F]){1}|([0-9A-Fa-f]{4}[.:-]){2}([0-9A-Fa-f]){4}|([0-9A-Fa-f]{6}[.-][0-9A-Fa-f]{6}){1}/
+          /([0-9a-fA-F][0-9a-fA-F][:.-]){5}([0-9a-fA-F][0-9a-fA-F]){1}|([0-9A-Fa-f]{4}[.:-]){2}([0-9A-Fa-f]){4}|([0-9A-Fa-f]{6}[.-][0-9A-Fa-f]{6}){1}|([0-9A-Fa-f]{12})/
         )
       )[0]
   );
