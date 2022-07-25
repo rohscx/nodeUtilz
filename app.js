@@ -56,7 +56,7 @@ const toCamelCase = require('./cusFun/toCamelCase.js');
 const ouiLookup = require('./cusFun/ouiLookup.js');
 
 module.exports = {
-  version: '1.0',
+  version: '1.1',
   networkScope: networkScope,
   // primeRouterObjs: getRouterObjs,
   // primeData: getPrimeData,
