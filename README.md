@@ -129,6 +129,22 @@ options = { onlyIp: true };
 utilz.filterBadIpV4(['1.1.1.1', '2.1.1.2', '2.3.4.2.1'], options);
 ```
 
+### findIpV4inString
+
+```js
+options = { onlyIp: true };
+
+nU.ipFromString("1.1.1.1\n10.126.1.2/20\n192.168.1.1/24", options)
+```
+### findIpV4PrefixinString
+
+```js
+options = { onlyIp: false };
+
+nU.ipFromString("1.1.1.1\n10.126.1.2/20\n192.168.1.1/24", options)
+```
+
+
 ### ciscoOption43
 
 ```js

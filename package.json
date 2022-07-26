@@ -1,6 +1,6 @@
 {
   "name": "nodeutilz",
-  "version": "1.2.22",
+  "version": "1.2.23",
   "description": "my homebrew appliation",
   "main": "app.js",
   "scripts": {
@@ -20,7 +20,6 @@
     "btoa": "^1.2.1",
     "json2csv": "^4.5.2",
     "node-ssh": "^12.0.5",
-    "nodeutilz": "^1.1.0",
     "ocsp": "^1.2.0",
     "ping": "^0.2.3",
     "qrcode": "^1.4.2",

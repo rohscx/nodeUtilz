@@ -43,13 +43,24 @@ module.exports = function(data, options = {}) {
       )
     );
   };
+  const onlyIp_prefix = data => {
+    return data.match(
+      new RegExp(
+        /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/\d{2}/,
+        'g'
+      )
+    );
+  };
   if (Object.keys(options).length === 0)
     console.log('OPTIONS NOT FOUND: accepts options as {onlyIp:true}');
   // pop() or it returns a nested array
-  //console.log(options)
-  if ((options.onlyIp = true)) {
+  // console.log(options)
+  if ((options.onlyIp == true)) {
+    // return arrayDedupe(responses.map(d => onlyIp_prefix(d)).filter(x => x !== undefined).map(d => d.pop()));
     return arrayDedupe(responses.map(d => onlyIp(d)).map(d => d.pop()));
   } else {
-    return arrayDedupe(responses);
+    return arrayDedupe(responses.map(d => onlyIp_prefix(d)).filter(x => x != null)).map(d => d.pop());
+    // All matching IPv4 addresses
+    // return arrayDedupe(responses);
   }
 };
