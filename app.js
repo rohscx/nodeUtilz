@@ -44,7 +44,7 @@ const readDirectory = require('./file/readDirectory.js');
 const deleteFile = require('./file/deleteFile.js');
 const prtgOptions = require('./prtg/prtgRequestOptions.js');
 const checkOscp = require('./oscp/checkOscp');
-const qrCode = require('./qrcode/qrCode');
+// const qrCode = require('./qrcode/qrCode');
 const btoa = require('btoa');
 const objectKeyFilter = require('./cusFun/objectKeyFilter.js');
 const isIpV4Address = require('./cusFun/isIpV4Address.js');
@@ -104,7 +104,7 @@ module.exports = {
   amznConnectReqirements: amznConnectReqirements,
   // tesseractOcr: tesseractOcr,
   checkOscp: checkOscp,
-  qrCode: qrCode,
+  // qrCode: qrCode,
   objectKeyFilter: objectKeyFilter,
   isIpV4Address: isIpV4Address,
   normalizedTime,
