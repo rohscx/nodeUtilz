@@ -20,7 +20,7 @@ const hashFunction = require('./cusFun/getHash.js');
 const hostCertProperties = require('./cusFun/hostCertProperties.js');
 const readFileDataNn = require('./cusFun/readFileDataNn.js');
 const nodePing = require('./cusFun/nodePing.js');
-const sshCredentialTest = require('./cusFun/sshCredentialTest.js');
+// const sshCredentialTest = require('./cusFun/sshCredentialTest.js');
 const groupItems = require('./cusFun/groupItems.js');
 const mergeObjects = require('./cusFun/mergeObjects.js');
 // const xmlToJson = require('./cusFun/xmlToJson.js');
@@ -56,7 +56,7 @@ const toCamelCase = require('./cusFun/toCamelCase.js');
 const ouiLookup = require('./cusFun/ouiLookup.js');
 
 module.exports = {
-  version: '1.0',
+  version: '1.1',
   networkScope: networkScope,
   // primeRouterObjs: getRouterObjs,
   // primeData: getPrimeData,
@@ -85,7 +85,7 @@ module.exports = {
   readFiles: readFileDataNn,
   pingV4Nn: nodePing,
   basicAuthString: btoa,
-  testSSH: sshCredentialTest,
+  //testSSH: sshCredentialTest,
   // primeDeviceProperties: primeDeviceProperties,
   // primeRequestOptions: primeRequestOptions,
   // primeDevices: primeData,
